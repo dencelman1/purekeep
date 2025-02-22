@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Pure persistent binary JavaScript database",
   "main": "src/i.js",
+  "type": "module",
   "scripts": {
     
   },
