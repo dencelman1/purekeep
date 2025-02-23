@@ -1,27 +1,36 @@
 
 
-import _ from './init.js';
+import d from './init.js';
 
 (
-    (q, s, keys) => (
-        (q[0] = 1),
-        (q[1] = "hello_world"),
-        (q[2] = true),
-        (q[3] = 0.0),
+    (s, k) => {
+        var
+            keys = Object.keys(k),
+            B = d.B
+        ;
+        return (
+            d.int_(B,k.id, 0, 1),
+            d.str_(B,k.name, 0, "h".repeat(21)),
+            d.bool_(B,k.bv, 0, true),
+            d.float_(B,k.float_value, 0, 1.1),
 
-        (s = Date.now()),
+            (s = Date.now()),
 
-        _.create(10_000),
-        console.log(_.toObject(_.toJson(_.read(120, 1), keys))),
+            d.create(1_000, 1),
+            console.log(JSON.parse(d.toJson(d.read(5, 1), keys))),
 
-        console.log((Date.now() - s)/1000)
-    )
-)(_.q, 0, [
-    "id",
-    "name",
-    "adult",
-    "percentValue"
-])
+            console.log((Date.now() - s)/1000)
+        );
+    }
+)(
+    0,
+    {
+        id: 0,
+        name: 1,
+        bv: 2,
+        float_value: 3
+    }
+)
 
 
 

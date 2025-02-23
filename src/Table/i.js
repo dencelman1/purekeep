@@ -4,120 +4,176 @@ import {
     writeFileSync,
     mkdirSync,
     existsSync,
-    rmdirSync
+    rmdirSync,
+    rmSync
 } from 'fs';
 import {join} from 'path';
-import version from "../version.js";
-
-
-
-// char limit <= 255 (Shardig mechanism);
-
 
 function Table(
     location,
     idlimit,
-    pbsize,
+    bsize,
+    queries,
+    force,
     types,
     rules,
 ) {
-
     var
         mx = Number.MAX_SAFE_INTEGER,
 
         em = this.empty,
 
-        bto = this.bto,
-        
-        sv = this.defaultStartValues,
-
         nte = this.nte = join(location, "nt"),
         ee = this.ee = join(location, "e"),
         he = this.he = join(location, "h"),
+
+        bfrom = this.bfrom,
+        bto = this.bto,
+
+        configP = join(location, "c"),
+        
+        isStr = this.isStr,
+        
+        config = null,
+        L = 0,
+        mkdirO = this.mkdirO,
+        EL = 0,
         BL = 0,
 
-        isStr = this.isStr,
-
-        q = (
-            this.q = (
-                Array.from(
-                    types,
-                    (v) => sv[v]()
-                )
-            )
-        )
+        Q = 0,
+        FOI = 0,
+        isQ = false
     ;
-    
-    (
-        this.r = rules
-    )
+
+    this.l = location;
+
+    ( this.r = rules )
     .reduce(
-        (o, _, i,a) => {
+        (o, R, i,a) => {
             var I = types[i];
             return (
-                isStr(I)
-                ||
-                (a[i] = o[I]),
+                (
+                    a[i] = (
+                        isStr(I)
+                        ? R
+                        : o[I]()
+                    )
+                ),
                 o
             );
         },
         this.offset
     );
-    this.cache = new Map();
 
-    this.il = (idlimit > mx ? mx: idlimit);
-    this.v = version;
-
-    this.f = (
-        (
-            this.t = types
-        )
-        .length
+    var FO = this.FO = (
+        Array.from(rules, (R, i) => {
+            var
+                I = types[i],
+                O = FOI
+            ;
+            (
+                FOI += (
+                    isStr(I)
+                    ? R + 1
+                    : R
+                )
+            );
+            return O;
+        })
     );
 
-    var B = (
-        this.B = (
-            Buffer.alloc(
-                BL =
-                this.BL = (
-                    q.reduce(
-                        (
-                            this.countBytes = (
-                                (r,v,i) => (
-                                    r + rules[i](v)
-                                )
+    (
+        force
+        ?(
+            rmSync(location, mkdirO),
+            false
+        )
+        : existsSync(location)
+    )
+    ? (
+        (
+            L = (
+                (
+                    config = (
+                        JSON.parse(
+                            readFileSync(
+                                configP,
+                                "utf8"
                             )
-                        ),
-                        (
-                            this.L =    // entries count
-                            this.P = 0 // end pointer
                         )
                     )
                 )
+                .L
             )
-        )
-    );
+        ),
+        (Q = config.Q)
+        (this.P = config.P),
+        (this.il = config.il)
+        
+        (this.v = this.versionCheck(config.v)),
+        (BL = config.BL),
+        (this.t = config.t),
+        (this.f = config.f),
+        (EL = config.EL)
+    )
+    : (
+        (
+            Q = (
+                queries < 3
+                ? 3
+                : (
+                    (isQ = ((queries + 1) % 4)) === 0
+                    ? queries
+                    : queries + (4 - isQ)
+                )
+            )
+        ),
+        (this.f = (( this.t = types ).length)),
 
-    this.PB = Buffer.alloc(pbsize(BL), "\x00", "utf8");
-    
-    this.btord = (
-        (o,v,i) => (
-            bto[types[i]](B,v,o),
-            
-            (o + rules[i](v))
-        )
-    );
+        (this.t = types),
 
-    existsSync(this.l = location)
-    || (
-        mkdirSync(location, this.mkdirO),
+        (
+            BL = (
+                (
+                    (
+                        BL = bsize(
+                            EL =
+                                rules
+                                .reduce(
+                                    (
+                                        (r,f, i) => (
+                                            (r + f) + Number(
+                                                isStr(types[i])
+                                            )
+                                        )
+                                    ),
+                                    0
+                                )
+                        )
+                    ) < EL
+                )
+                ? EL
+                : BL
+            )
+        ),
+
+
+        (this.v = this.version),
+
+        this.il = (idlimit > mx ? mx: idlimit),
+        (
+            this.P =
+            L = 0
+        ),
+
+        mkdirSync(location, mkdirO),
         
         writeFileSync( ee, em ),
         writeFileSync( he, em ),
         writeFileSync( nte, em ),
 
         writeFileSync(
-            join(location, "c"),
+            configP,
             Buffer.from(
                 JSON.stringify(
                     this,
@@ -128,8 +184,14 @@ function Table(
             )
         )
     );
+
+    // *
+    this.EL = EL;
+
+    this.B = Buffer.alloc((this.BL = BL), "\x00", "utf8");
 };
 
 Table.prototype = f;
 
 export default Table;
+

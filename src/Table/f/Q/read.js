@@ -1,59 +1,69 @@
-import {readSync, openSync, closeSync} from 'fs';
+    import {readSync, openSync, closeSync} from 'fs';
 
 export default (
     function(
-        id,
-        l
+        q,
+        c
     ) {
         var 
             d = openSync(this.ee, 'r'),
             B = this.B,
+            EL = this.EL,
 
-            PB = this.PB,
-            ID = 0,
-            types = this.t,
-            L=types.length,
-            bfrom = this.bfrom
+            O = 0,
+            _L = EL,
+
+            L = this.L,
+
+            i = 0,
+            P = 0,
+
+            a = false,
+
+            BL = this.BL,
+
+            compare = this.compare,
+            logic = this.logic,
+
+            lf = null,
+
+            l = 0,
+            ql = q.length,
+            ch = true,
+            query = this.query
         ;
-        for(
-            var
-                i = 0,
-                p = 0,
-                BL = this.BL,
-                bto =this.bto
-            ; 
-            (
-                (p<l)
-                &&
-                (i<BL)
-            );
-            i++
+
+        B.fill("\x00", 0, BL, "utf8");
+
+        for (
+            ;
+            i < L;
+
+            (P += EL), i++, (ch = true)
         ) {
-            readSync(d, B, 0, BL, i);
-
-
-            console.log(id, bfrom[0](B, 0));
+            readSync(d, B, O, _L, P);
             
-            if (id === (ID = bfrom[0](B, 0))) {
-                for(
-                    var
-                        I = 0,
-                        O = 0
-                    ;
-                    I<L;
-                    I++
-                ){
-                    bto[i](PB, this.bfrom[i](B, O), O);
-                    O+=this.rules[i]();
-                };
+            if (
+                query(
+                    q,
+                    B,
+                    ql,
+                )
+            ) {
+                O += EL;
+                _L += EL;
                 
-                p++;
+                if ((--c) === 0) {
+                    break;
+                };
             };
         };
-        
+
+        c && B.fill("\x00", O, _L, "utf8");
+
         return (
             closeSync(d),
-            PB
+            B
         );
     }
 );

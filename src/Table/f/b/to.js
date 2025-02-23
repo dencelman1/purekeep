@@ -16,5 +16,7 @@ export default (
 
         (b,v,o) => b.writeFloatLE(v, o),
         (b,v,o) => b.writeDoubleLE(v, o),
+
+        (b,v,o) => b.write(v, o, "utf16le"),
     ]
 )

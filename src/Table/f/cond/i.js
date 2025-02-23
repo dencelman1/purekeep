@@ -1,24 +1,2 @@
-import number from './number.js';
-import string from './string.js';
-import boolean from './boolean.js';
-
-
-export default (
-    [
-        number,
-        string,
-        boolean,
-
-        number,
-        number,
-        number,
-
-        number,
-        number,
-        number,
-        number,
-
-        number,
-        number,
-    ]
-);
+export {default as compare } from './compare.js';
+export {default as logic} from './logic.js';

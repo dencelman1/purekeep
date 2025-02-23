@@ -5,36 +5,39 @@ import {openSync, writeSync, closeSync} from 'fs';
 
 export default (
     function(
-        t // times
+        t, // times
+        c // entries count
     ) {
 
         // TODO: put into db clearly if (holes) { in holes }
         var
-            BL = this.BL,
+            EL = this.EL,
             B = this.B,
             
             P = this.P,
 
             d = openSync(this.ee, 'w')
         ;
-        this.q.reduce(this.btord, 0);
-
+        
         for (
-            var i = 0;
-            i<t;
+            var
+                i = 0,
+                j = 0
+            ;
+            i < t;
             i++
         ) {
-            this.bto[this.Type.int32](B,i,0); // *
-            writeSync(d,B,0,BL,P);
-
-
-            P+=BL;
+            for (; j<c; j++) {
+                writeSync(d,B,0,EL,P);
+            };
+            j = 0;
+            P += EL;
         };
 
         return (
             closeSync(d),
-            (this.P += (BL*t)),
-            (this.L += t),
+            (this.P = P),
+            (this.L += (t*c)),
             true
         );
     }
