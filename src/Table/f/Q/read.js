@@ -1,4 +1,11 @@
-    import {readSync, openSync, closeSync} from 'fs';
+import {readSync, openSync, closeSync} from 'fs';
+
+
+// [field_id, operation_id, value_buffer_id];
+// [and, or];
+
+// [...Buffers];
+
 
 export default (
     function(
@@ -17,17 +24,9 @@ export default (
 
             i = 0,
             P = 0,
-
-            a = false,
-
+            
             BL = this.BL,
 
-            compare = this.compare,
-            logic = this.logic,
-
-            lf = null,
-
-            l = 0,
             ql = q.length,
             ch = true,
             query = this.query

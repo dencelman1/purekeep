@@ -1,13 +1,10 @@
 
-export default function(B, f, I, v) {
+export default function(B, f, o, v) {
     return (
         this.bto[this.t[f]](
             B,
             v,
-            (
-                I * this.EL
-            )
-            + this.FO[f]
+            o
         ),
         this
     );

@@ -1,21 +1,22 @@
 
 
-export default [
-    "int",
-    'str',
-    'bool',
+export default ((i,s,b,f) => [
+    i,
+    s,
+    b,
 
-    'int',
-    'int',
-    'int',
+    i,
+    i,
+    i,
 
-    'int',
-    'int',
-    "int",
-    'int',
+    i,
+    i,
+    i,
+    i,
 
-    'float',
-    'float',
+    f,
+    f,
 
-    "str"
-];
+    s,
+    s,
+])("int", "str", "bool", "float");

@@ -1,8 +1,8 @@
 
 
-export default ((o, t, f, e) => [
+export default ((byteLength, o, t, f, e) => [
     o,
-    (v) => Buffer.byteLength(v, "utf8"),
+    (v) => byteLength(v, "utf8"),
     o,
 
     t,f,e,
@@ -10,8 +10,9 @@ export default ((o, t, f, e) => [
 
     f,e,
 
-    (v) => Buffer.byteLength(v, "utf16le"),
+    (v) => byteLength(v, "utf16le"),
 ])(
+    Buffer.byteLength,
     () => 1,
     () => 2,
     () => 4,

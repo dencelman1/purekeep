@@ -12,6 +12,8 @@ export * from './version/i.js';
 
 export * from './cond/i.js';
 
+export {default as length} from './length.js';
+
 export {default as offset} from './offset/i.js';
 
 export {default as empty} from './empty.js';

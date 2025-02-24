@@ -16,7 +16,7 @@ export default (
             i++
         ) {
             type = types[i];
-            V+=`"${k[i]}":${JSON.stringify(this[ TypeAlias[type] ](B, i, 0))},`;
+            V+=`"${k[i]}":${JSON.stringify(this[ TypeAlias[type] ](B[i], i, 0))},`;
         };
         return V.substring(0, V.length - 1) + "}";
     }

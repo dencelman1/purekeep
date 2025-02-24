@@ -1,44 +1,40 @@
 
-import {openSync, writeSync, closeSync} from 'fs';
-
+import {writeSync, closeSync} from 'fs';
 
 
 export default (
     function(
-        t, // times
-        c // entries count
+        e
     ) {
 
         // TODO: put into db clearly if (holes) { in holes }
         var
-            EL = this.EL,
-            B = this.B,
-            
             P = this.P,
 
-            d = openSync(this.ee, 'w')
+            d = this.d,
+
+            f = this.f,
+
+            t = this.t,
+            r = this.r,
+
+            s = 0,
+            I = 0
         ;
         
         for (
-            var
-                i = 0,
-                j = 0
-            ;
-            i < t;
+            var i = 0;
+            i < f;
             i++
         ) {
-            for (; j<c; j++) {
-                writeSync(d,B,0,EL,P);
-            };
-            j = 0;
-            P += EL;
+            writeSync(d[i],e[i],0,(s = r[i]()),P[i]);
+            P[i] += s;
         };
 
         return (
-            closeSync(d),
             (this.P = P),
-            (this.L += (t*c)),
-            true
+            (this.L++)
+            
         );
     }
 )

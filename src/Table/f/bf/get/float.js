@@ -1,12 +1,9 @@
 
-export default function(B, f, I) {
+export default function(B, f, o) {
     return (
         this.bfrom[this.t[f]](
             B,
-            (
-                I * this.EL
-            )
-            + this.FO[f]
+            o
         )
     );
 }

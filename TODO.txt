@@ -1,0 +1,28 @@
+mutex;
+type_of_string_text; // (unlimited (type of string) with length > 255);
+version_check;
+
+[ bl ]:
+
+- has and isin for float and integer without conversion to string;
+
+- NEW_TYPES () {
+    1 utf32;
+    2 array that supports digits with (32, 64) bytes;
+}
+
+
+[ now ]:
+
+1 string have (length field) and for lengths we create a separated file;
+
+2 uint: [] length (8, 16, 32, 64 bits), and which code value have each char (8, 16, 32 bits);
+
+3 than whan we compare strings, we indicate comparison of (
+    3.1 length
+    ||
+    3.2 string value
+);
+
+
+[bf, Q, to, numToStr];

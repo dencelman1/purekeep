@@ -1,10 +1,16 @@
+import {gt, le, eq, gteq, leeq, has, isin} from './operation/i.js';
 
 
-export default [
-    (a,b) => (a === b),
-    
-    (a,b) => (a > b),
-    (a,b) => (a < b),
-    (a,b) => (a >= b),
-    (a,b) => (a <= b),
-];
+export default (
+    [
+        eq,
+        
+        gt,
+        le,
+        gteq,
+        leeq,
+
+        has,
+        isin,
+    ]
+)

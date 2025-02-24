@@ -4,7 +4,7 @@ import {
     writeFileSync,
     mkdirSync,
     existsSync,
-    rmdirSync,
+    openSync,
     rmSync
 } from 'fs';
 import {join} from 'path';
@@ -12,8 +12,6 @@ import {join} from 'path';
 function Table(
     location,
     idlimit,
-    bsize,
-    queries,
     force,
     types,
     rules,
@@ -23,26 +21,19 @@ function Table(
 
         em = this.empty,
 
-        nte = this.nte = join(location, "nt"),
-        ee = this.ee = join(location, "e"),
+        ee = join(location, "e"),
         he = this.he = join(location, "h"),
-
-        bfrom = this.bfrom,
-        bto = this.bto,
 
         configP = join(location, "c"),
         
-        isStr = this.isStr,
+        isstr = this.isstr,
         
         config = null,
-        L = 0,
         mkdirO = this.mkdirO,
         EL = 0,
-        BL = 0,
 
-        Q = 0,
-        FOI = 0,
-        isQ = false
+        L = 0,
+        ps = null
     ;
 
     this.l = location;
@@ -54,7 +45,7 @@ function Table(
             return (
                 (
                     a[i] = (
-                        isStr(I)
+                        isstr(I)
                         ? R
                         : o[I]()
                     )
@@ -63,23 +54,6 @@ function Table(
             );
         },
         this.offset
-    );
-
-    var FO = this.FO = (
-        Array.from(rules, (R, i) => {
-            var
-                I = types[i],
-                O = FOI
-            ;
-            (
-                FOI += (
-                    isStr(I)
-                    ? R + 1
-                    : R
-                )
-            );
-            return O;
-        })
     );
 
     (
@@ -106,54 +80,34 @@ function Table(
                 .L
             )
         ),
-        (Q = config.Q)
         (this.P = config.P),
         (this.il = config.il)
         
         (this.v = this.versionCheck(config.v)),
-        (BL = config.BL),
         (this.t = config.t),
         (this.f = config.f),
-        (EL = config.EL)
+        (EL = config.EL),
+        (ps = config.ps)
     )
     : (
-        (
-            Q = (
-                queries < 3
-                ? 3
-                : (
-                    (isQ = ((queries + 1) % 4)) === 0
-                    ? queries
-                    : queries + (4 - isQ)
-                )
-            )
-        ),
         (this.f = (( this.t = types ).length)),
 
         (this.t = types),
-
+        
         (
-            BL = (
-                (
+            this.EL =
+            EL = (
+                rules
+                .reduce(
                     (
-                        BL = bsize(
-                            EL =
-                                rules
-                                .reduce(
-                                    (
-                                        (r,f, i) => (
-                                            (r + f) + Number(
-                                                isStr(types[i])
-                                            )
-                                        )
-                                    ),
-                                    0
-                                )
+                        (r,f, i) => (
+                            (r + f) + Number(
+                                isstr(types[i])
+                            )
                         )
-                    ) < EL
+                    ),
+                    0
                 )
-                ? EL
-                : BL
             )
         ),
 
@@ -161,23 +115,38 @@ function Table(
         (this.v = this.version),
 
         this.il = (idlimit > mx ? mx: idlimit),
+
+
         (
-            this.P =
-            L = 0
+            this.P = Array.from(types, () => 0)
         ),
 
-        mkdirSync(location, mkdirO),
+        (
+            this.L = L = 0
+        ),
         
-        writeFileSync( ee, em ),
+        mkdirSync(location, mkdirO),
+        mkdirSync(ee, mkdirO),
+        
         writeFileSync( he, em ),
-        writeFileSync( nte, em ),
 
+        (ps = this.ps = Array.from(types, (_,i) => {
+            var p = join(ee, i.toString());
+            writeFileSync(p, em)
+            return p;
+            
+        })),
+        
         writeFileSync(
             configP,
             Buffer.from(
                 JSON.stringify(
                     this,
-                    null,
+                    (_, v) => (
+                        v instanceof Set
+                        ? Array.from(v)
+                        : v
+                    ),
                     0
                 ),
                 "utf8"
@@ -185,10 +154,24 @@ function Table(
         )
     );
 
-    // *
-    this.EL = EL;
+    this.d = Array.from(ps, (p, i) => (
+        openSync(p, 'a+')
+    ));
 
-    this.B = Buffer.alloc((this.BL = BL), "\x00", "utf8");
+    this.sd = Array.from(ps, (p, i) => (
+        isstr(types[i])
+        ? openSync(p + "s", 'a+')
+        : null
+    ));
+
+    // *
+    
+    this.pb = (
+        Array.from(types, (_, i) => (
+            Buffer.alloc(rules[i], "\x00", "utf8")
+        ))
+    );
+
 };
 
 Table.prototype = f;
