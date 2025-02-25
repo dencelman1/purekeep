@@ -1,9 +1,13 @@
 
 
 export default (
-    (B) => (
-        Buffer.from(
-            B.toString('utf8')
-        )
-    )
-)
+    function(b, t, o, e) {
+        return (
+            Buffer.from(
+                this
+                .int(b, t, o)
+                .toString(e)
+            )
+        );
+    }
+);

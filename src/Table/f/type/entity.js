@@ -1,6 +1,7 @@
 
 
 export default {
-    VALUE: 0,
-    STRING_LENGTH: 1,
+    ID: 0,
+    VALUE: 1,
+    LENGTH: 2,
 };

@@ -15,6 +15,7 @@ function Table(
     force,
     types,
     rules,
+    size
 ) {
     var
         mx = Number.MAX_SAFE_INTEGER,
@@ -33,7 +34,10 @@ function Table(
         EL = 0,
 
         L = 0,
-        ps = null
+        ps = null,
+
+        z = this.z,
+        offset = this.offset
     ;
 
     this.l = location;
@@ -53,7 +57,7 @@ function Table(
                 o
             );
         },
-        this.offset
+        offset
     );
 
     (
@@ -81,15 +85,23 @@ function Table(
             )
         ),
         (this.P = config.P),
-        (this.il = config.il)
+        (this.SP = config.SP),
+        (this.il = config.il),
         
         (this.v = this.versionCheck(config.v)),
         (this.t = config.t),
         (this.f = config.f),
         (EL = config.EL),
-        (ps = config.ps)
+        (ps = config.ps),
+        (this.s = config.s),
+        (this.ss = config.ss)
     )
     : (
+        (this.s = size),
+        (this.ss = Array.from(size, (s) => (
+            s ? offset[s](): s
+        ))),
+
         (this.f = (( this.t = types ).length)),
 
         (this.t = types),
@@ -117,9 +129,8 @@ function Table(
         this.il = (idlimit > mx ? mx: idlimit),
 
 
-        (
-            this.P = Array.from(types, () => 0)
-        ),
+        (this.P = Array.from(types, z)),
+        (this.SP = Array.from(types, z)),
 
         (
             this.L = L = 0
@@ -134,7 +145,6 @@ function Table(
             var p = join(ee, i.toString());
             writeFileSync(p, em)
             return p;
-            
         })),
         
         writeFileSync(
@@ -172,6 +182,10 @@ function Table(
         ))
     );
 
+    this.etypes = [
+        rules,
+        size
+    ];
 };
 
 Table.prototype = f;

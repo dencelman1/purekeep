@@ -1,40 +1,80 @@
 
-import {writeSync, closeSync} from 'fs';
-
 
 export default (
     function(
-        e
+        E,
+        L,
+        a // int array for ids
     ) {
 
         // TODO: put into db clearly if (holes) { in holes }
         var
             P = this.P,
-
-            d = this.d,
-
+            SP = this.SP,
+            
             f = this.f,
 
-            t = this.t,
+            d = this.d,
+            sd = this.sd,
+
             r = this.r,
+            ss = this.ss,
+            s = this.s,
 
-            s = 0,
-            I = 0
-        ;
-        
-        for (
-            var i = 0;
-            i < f;
-            i++
-        ) {
-            writeSync(d[i],e[i],0,(s = r[i]()),P[i]);
-            P[i] += s;
-        };
+            ty = this.t,
 
-        return (
-            (this.P = P),
-            (this.L++)
+            T = 0,
             
+            isstr = this.isstr,
+
+            bfrom = this.bfrom,
+            
+            saveField = this.saveField,
+
+            lb = null,
+            EL = E.length,
+
+            el = this.L
+        ;
+
+        for (
+            var
+                j = 0,
+                i = 0,
+                e = E[j],
+                l = L[j]
+            ;
+            j < EL;
+            (
+                (e = E[++j]),
+                (a[j] = (el++)),
+
+                (l = L[j]),
+                
+                (i = 0)
+            )
+        ) {
+            for (
+                ;
+                i < f;
+                i++
+            ) {
+                P[i] += (
+                    isstr(T = ty[i])
+                    ? (
+                        (SP[i] += saveField(sd[i], (lb = l[i]), ss[i], SP[i])),
+                        saveField(d[i], e[i], bfrom[s[i]](lb,0,0), P[i])
+                    )
+                    : saveField(d[i], e[i], r[i], P[i])
+                );
+            };
+        };
+        
+        a[0] = j;
+        
+        return (
+            (this.L = el),
+            a
         );
     }
 )

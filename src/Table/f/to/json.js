@@ -1,6 +1,6 @@
 
 export default (
-    function(B, k) {
+    function(B, k, l) {
         var
             V = "{",
             types = this.t,

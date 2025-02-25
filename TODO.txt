@@ -1,4 +1,3 @@
-mutex;
 type_of_string_text; // (unlimited (type of string) with length > 255);
 version_check;
 
@@ -9,20 +8,40 @@ version_check;
 - NEW_TYPES () {
     1 utf32;
     2 array that supports digits with (32, 64) bytes;
-}
+};
 
 
 [ now ]:
 
-1 string have (length field) and for lengths we create a separated file;
+task STRING {
+    1 string have (length field) and for lengths we create a separated file;
 
-2 uint: [] length (8, 16, 32, 64 bits), and which code value have each char (8, 16, 32 bits);
+    2 uint: [] length (8, 16, 32, 64 bits), and which code value have each char (8, 16, 32 bits);
 
-3 than whan we compare strings, we indicate comparison of (
-    3.1 length
-    ||
-    3.2 string value
-);
+    3 than whan we compare strings, we indicate comparison of (
+        3.1 length
+        ||
+        3.2 string value
+    );
+};
 
 
-[bf, Q, to, numToStr];
+[ Based on array length ( with fixed limit ) ( prepared Buffers in array ) ]:
+1 create;
+
+2 read;
+
+[ With limit or those, which falls under the terms of the request ]:
+3 update;
+4 delete;
+
+5 after every CRUD operation ( save changes in static memory ( config ) );
+
+6 inner mutex (ask fastify about it);
+
+[ Q, to, numToStr ];
+
+
+
+
+19c; 21 (100k euro);

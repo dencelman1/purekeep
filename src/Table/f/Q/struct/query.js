@@ -1,5 +1,5 @@
-import compare from '../cond/compare.js';
-import logic from '../cond/logic.js';
+import compare from '../../cond/compare.js';
+import logic from '../../cond/logic.js';
 
 
 export default (
