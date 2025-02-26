@@ -11,11 +11,13 @@ export default (
         var
             P = this.P,
             SP = this.SP,
+            OP = this.OP,
             
             f = this.f,
 
             d = this.d,
             sd = this.sd,
+            od = this.od,
 
             r = this.r,
             ss = this.ss,
@@ -63,6 +65,7 @@ export default (
                     isstr(T = ty[i])
                     ? (
                         (SP[i] += saveField(sd[i], (lb = l[i]), ss[i], SP[i])),
+                        (OP[i] += saveField(od[i], (lb = l[i]), 4, OP[i])),
                         saveField(d[i], e[i], bfrom[s[i]](lb,0,0), P[i])
                     )
                     : saveField(d[i], e[i], r[i], P[i])

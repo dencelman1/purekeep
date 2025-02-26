@@ -23,7 +23,7 @@ function Table(
         em = this.empty,
 
         ee = join(location, "e"),
-        he = this.he = join(location, "h"),
+        he = join(location, "h"),
 
         configP = join(location, "c"),
         
@@ -37,11 +37,12 @@ function Table(
         ps = null,
 
         z = this.z,
+        sdi = null,
         offset = this.offset
     ;
 
-    this.l = location;
-
+    this.configP = configP;
+    
     ( this.r = rules )
     .reduce(
         (o, R, i,a) => {
@@ -92,9 +93,24 @@ function Table(
         (this.t = config.t),
         (this.f = config.f),
         (EL = config.EL),
-        (ps = config.ps),
         (this.s = config.s),
-        (this.ss = config.ss)
+        (this.ss = config.ss),
+
+        (
+            sdi =
+            this.sdi = (
+                new Map(
+                    config
+                    .sdi
+                    .map(
+                        (v, i) => [
+                            i,
+                            new Map(v)
+                        ]
+                    )
+                )
+            )
+        )
     )
     : (
         (this.s = size),
@@ -114,7 +130,9 @@ function Table(
                     (
                         (r,f, i) => (
                             (r + f) + Number(
-                                isstr(types[i])
+                                isstr(
+                                    types[i]
+                                )
                             )
                         )
                     ),
@@ -126,7 +144,7 @@ function Table(
 
         (this.v = this.version),
 
-        this.il = (idlimit > mx ? mx: idlimit),
+        (this.il = (idlimit > mx ? mx: idlimit)),
 
 
         (this.P = Array.from(types, z)),
@@ -135,54 +153,76 @@ function Table(
         (
             this.L = L = 0
         ),
-        
+
+        (
+            sdi =
+            this.sdi = new Map(
+                types
+                .map(
+                    (_, i) => [
+                        i,
+                        new Map()
+                    ]
+                )
+            )
+        ),
+
         mkdirSync(location, mkdirO),
         mkdirSync(ee, mkdirO),
         
         writeFileSync( he, em ),
 
-        (ps = this.ps = Array.from(types, (_,i) => {
-            var p = join(ee, i.toString());
-            writeFileSync(p, em)
-            return p;
-        })),
-        
-        writeFileSync(
-            configP,
-            Buffer.from(
-                JSON.stringify(
-                    this,
-                    (_, v) => (
-                        v instanceof Set
-                        ? Array.from(v)
-                        : v
-                    ),
-                    0
-                ),
-                "utf8"
+        this.confdump()
+    );
+
+    this.d = Array.from(
+        (
+            ps = Array.from(
+                types,
+                (_,i) => {
+                    var p = join(ee, i.toString());
+                    writeFileSync(p, em)
+                    return p;
+                }
             )
+        ),
+        (p) => openSync(p, 'a+')
+    );
+
+    this.sd = (
+        Array.from(
+            ps,
+            (p,i) => {
+                var t = types[i];
+                return (
+                    isstr(t)
+                    ? (
+                        new Map(
+                            Array.from( sdi.get( i ) )
+                            .map(
+                                (v) => [
+                                    v[0],
+                                    openSync(
+                                        (
+                                            p
+                                            + "s"
+                                            + v[1].toString()
+                                        ),
+                                        'a+'
+                                    )
+                                ]
+                            )
+                        )
+                    )
+                    : null
+                )
+            }
         )
     );
 
-    this.d = Array.from(ps, (p, i) => (
-        openSync(p, 'a+')
-    ));
-
-    this.sd = Array.from(ps, (p, i) => (
-        isstr(types[i])
-        ? openSync(p + "s", 'a+')
-        : null
-    ));
-
-    // *
-    
-    this.pb = (
-        Array.from(types, (_, i) => (
-            Buffer.alloc(rules[i], "\x00", "utf8")
-        ))
-    );
-
     this.etypes = [
+        rules, // unused
+
         rules,
         size
     ];

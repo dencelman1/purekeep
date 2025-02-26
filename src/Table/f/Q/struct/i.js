@@ -12,3 +12,5 @@ export {default as z} from './z.js';
 export {default as saveField} from './saveField.js';
 
 export {default as ids} from './ids.js';
+
+export {default as sm} from './sm.js';

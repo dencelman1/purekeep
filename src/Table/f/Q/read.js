@@ -1,11 +1,6 @@
 import { readSync } from 'fs';
 
 
-// [field_id, operation_id, value_buffer_id];
-// [and, or];
-
-// [...Buffers];
-
 /*
     E, // entries (put here)
     L, // lengths (put here)
@@ -16,13 +11,13 @@ import { readSync } from 'fs';
     FI // fields (which fields put into E, L)
 
 
-[
-    field_id,
-    value_type,
+    [
+        0 field_id,
+        1 value_type,
 
-    operation_id,
-    value's_index_from_QE
-];
+        2 operation_id,
+        3 value's_index_from_QE
+    ];
 
 */
 
@@ -55,23 +50,45 @@ export default (
             ba = null,
             bb = null,
 
+            ty = this.t,
+
             isstr = this.isstr,
 
             d = this.d,
             sd = this.sd,
+            od = this.od,
 
             bfrom = this.bfrom,
             bto = this.bto,
 
             s = this.s,
-            r = this.r
+            r = this.r,
+
+            Q1 = 0,
+            FIL = FI.length,
+
+            sm = this.sm,
+
+            buffer = this.em,
+            OB = this.OB
+            
         ;
         for (
             var
                 i = 0,
                 a = false,
                 j = 0,
-                x = 0
+                x = 0,
+                z = 0,
+                EF = E[0],
+                FIZ = 0,
+                rfiz = 0,
+                size = 0,
+                o = 0,
+                ELL = null,
+
+                ELLF = null,
+                T = 0
             ;
             (f < EL) && (i < L);
             (
@@ -100,24 +117,70 @@ export default (
                 // * here i can cache values which could be usefull in TODO 2;
 
                 ba = Buffer.from("TODO 1: here value from ");
-                
-                a = (
+
+                (
                     (
-                        compare[
-                            etypes[ Q[ j + 1 ] ][ Q[ j ] ]
+                        Q1 = (
+                            Q[
+                                j
+                                + 1
+                            ]
+                        )
+                    ) === 0
+                )
+                ? (
+                    i === Q[ j + 3 ]
+                )
+                : (
+                    (
+                        a = (
+                            (
+                                compare[
+                                    etypes[ Q1 ][ Q[ j ] ]
+                                ]
+                            )[
+                                Q[ j + 2 ]
+                            ]
+                        )
+                    )(
+                        ba,
+                        QE[
+                            Q[
+                                j + 3
+                            ]
                         ]
-                    )[
-                        Q[ j + 2 ]
-                    ]
-                )(
-                    ba,
-                    Q[ j + 3 ]
+                        
+                    )
                 );
             };
 
             if (a) {
-                // TODO 2: put data into E and L (what exatly i need to put - read from FI (fields indexes))
+                
+                for (; z < FIL; z++) {
+                    FIZ = FI[z];
+                    
+                    if (
+                        isstr(
+                            T = ty[v]
+                        )
+                    ) {
+                        ELLF = L[z][ FIZ ];
+
+                        readSync(od[ FIZ ], OB, 0, 4, i * 4);
+                        readSync(sd[ FIZ ], ELLF, 0, (rfiz = s[ FIZ ]), i * rfiz);
+                        
+                        readSync(d[ FIZ ], EF[ FIZ ], 0, bfrom[T](ELLF,0,0), OB.readUInt32LE(0));
+                    }
+                    else {
+                        readSync(d[ FIZ ], EF[ FIZ ], 0, (rfiz = r[ FIZ ]), (i * rfiz));
+                    };
+                    
+                };
+                
+                z = 0;
+
                 A[++f] = i;
+                EF = E[f];
             };
         };
         A[0] = f;

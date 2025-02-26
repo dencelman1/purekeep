@@ -32,12 +32,25 @@ task STRING {
 2 read;
 
 [ With limit or those, which falls under the terms of the request ]:
+
 3 update;
+
 4 delete;
 
-5 after every CRUD operation ( save changes in static memory ( config ) );
 
-6 inner mutex (ask fastify about it);
+5 after every CRUD operation (
+    (
+        save changes in static memory
+    )(
+        config
+    )(
+        specific value or all
+    )
+);
+
+6 sharding;
+
+7 inner mutex (own instead of fastify);
 
 [ Q, to, numToStr ];
 

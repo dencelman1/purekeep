@@ -15,3 +15,6 @@ export {default as offset} from './offset/i.js';
 
 export {default as empty} from './empty.js';
 export {default as nullTrim} from './nullTrim.js';
+
+export {default as confdumpV} from './confdumpV.js';
+export {default as confdump} from './confdump.js';
