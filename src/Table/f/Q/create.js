@@ -72,8 +72,8 @@ export default (
                         (LENGTH = this.offset[T](STRING_VALUE = e[i])),
 
                         
-                        writeSync(od[i], OB, 4, OP[i]),
-                        (OP[i] += 4),
+                        writeSync(od[i], OB, 4, OP[i])
+                        , ( OP[i] += 4 ),
 
                         (
                             SD = (
