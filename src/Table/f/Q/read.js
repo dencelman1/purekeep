@@ -8,6 +8,9 @@ import { readSync } from 'fs';
 
     Q, // queries
     LQ, // logic queries
+
+    QV, // Query values which uses in queries (Q) conditions
+
     FI // fields (which fields put into E, L)
 
 
@@ -32,12 +35,13 @@ export default (
         Q,
         LQ,
 
-        QE,
+        QV,
 
         FI
     ) {
         var
-            L = this.L,
+            FullLength = this.L,
+
             compare = this.compare,
             logic = this.logic,
             etypes = this.etypes,
@@ -62,15 +66,15 @@ export default (
             bto = this.bto,
 
             s = this.s,
+            ss = this.ss,
+
             r = this.r,
 
             Q1 = 0,
             FIL = FI.length,
-
-            sm = this.sm,
-
-            buffer = this.em,
-            OB = this.OB
+            
+            OB = this.OB,
+            em = this.em
             
         ;
         for (
@@ -80,17 +84,22 @@ export default (
                 j = 0,
                 x = 0,
                 z = 0,
-                EF = E[0],
+                
                 FIZ = 0,
                 rfiz = 0,
-                size = 0,
-                o = 0,
-                ELL = null,
 
-                ELLF = null,
-                T = 0
+                lb = null,
+                
+                SD = null,
+                T = 0,
+
+                LENGTH = L[0],
+                EF = E[0],
+
+                LENGTH_BF = em,
+                LENGTH_VALUE = 0
             ;
-            (f < EL) && (i < L);
+            (f < EL) && (i < FullLength);
             (
                 i++,
                 (x = j = 0),
@@ -144,7 +153,7 @@ export default (
                         )
                     )(
                         ba,
-                        QE[
+                        QV[
                             Q[
                                 j + 3
                             ]
@@ -164,12 +173,34 @@ export default (
                             T = ty[v]
                         )
                     ) {
-                        ELLF = L[z][ FIZ ];
 
-                        readSync(od[ FIZ ], OB, 0, 4, i * 4);
-                        readSync(sd[ FIZ ], ELLF, 0, (rfiz = s[ FIZ ]), i * rfiz);
+                        // length find and put;
+                        // offset find;
+                        // with offset find and put string value;
+
                         
-                        readSync(d[ FIZ ], EF[ FIZ ], 0, bfrom[T](ELLF,0,0), OB.readUInt32LE(0));
+                        readSync(
+                            d[ FIZ ],
+                            (LENGTH_BF = LENGTH[ FIZ ]),
+                            0,
+                            (rfiz = ss[ FIZ ]),
+                            (i * rfiz)
+                        );
+                        
+                        SD = (
+                            this.sdopen(
+                                FIZ,
+                                (LENGTH_VALUE = bfrom[T](LENGTH_BF, 0,0))
+                            )
+                        );
+                        
+                        readSync(
+                            SD.d,
+                            EF[ FIZ ],
+                            0,
+                            LENGTH_VALUE,
+                            SD[3]
+                        );
                     }
                     else {
                         readSync(d[ FIZ ], EF[ FIZ ], 0, (rfiz = r[ FIZ ]), (i * rfiz));
@@ -179,9 +210,13 @@ export default (
                 
                 z = 0;
 
-                A[++f] = i;
+                A[++f][
+                    0 // TODO:
+                ] = i;
                 EF = E[f];
+                LENGTH = L[f];
             };
+
         };
         return f;
     }

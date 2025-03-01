@@ -52,7 +52,9 @@ export default (
             j < EL;
             (
                 (e = E[++j]),
-                (a[j] = (el++)),
+                (a[j][
+                    0 // TODO:
+                ] = (el++)),
 
                 (l = L[j]),
                 
@@ -67,40 +69,39 @@ export default (
                 P[i] += (
                     isstr(T = ty[i])
                     ? (
+                        (lb = l[i])
 
+                        , (
+                            LENGTH = (
+                                bfrom[s[i]](lb,0,0)
+                            )
+                        )
 
-                        (LENGTH = this.offset[T](STRING_VALUE = e[i])),
-
-                        
-                        writeSync(od[i], OB, 4, OP[i])
-                        , ( OP[i] += 4 ),
-
-                        (
+                        , (
                             SD = (
                                 this.sdopen(
-                                    sd[
-                                        i
-                                    ][
-                                        
-                                    ]
+                                    i,
+                                    LENGTH
                                 )
-                            )[0]
-                        ),
-                        
-                        saveField(
-                            SD.d,
-                            STRING_VALUE,
-                            bfrom[s[i]](lb,0,0),
-                            P[i]
-                        ),
-                        
-                        (
-                            SP[i] += (
+                            )
+                        )
+                        , OB.writeUInt16LE(SD[1]++, 0)
+                        , writeSync(od[i], OB, 0, 2, OP[i])
+                        , ( OP[i] += 2 )
+
+                        , (
+                            P[i] += (
+                                saveField(d[i], lb, ss[i], P[i])
+                            )
+                        )
+
+                        , (
+                            SD[3] += (
                                 saveField(
-                                    d[i],
-                                    (lb = l[i]),
-                                    ss[i],
-                                    SP[i]
+                                    SD.d,
+                                    e[i],
+                                    bfrom[s[i]](lb, 0,0),
+                                    SD[3]
                                 )
                             )
                         )
@@ -112,7 +113,7 @@ export default (
         
         return (
             (this.L = el),
-            a
+            EL
         );
     }
 )

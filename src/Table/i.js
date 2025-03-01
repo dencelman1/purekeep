@@ -7,59 +7,38 @@ import {
     openSync,
     rmSync
 } from 'fs';
-import {join} from 'path';
+
+import {
+    join
+} from 'path';
+
 
 function Table(
     location,
     idlimit,
-    idslength,
     force,
+
     types,
+
     rules,
     size
 ) {
     var
-        mx = Number.MAX_SAFE_INTEGER,
-
-        em = this.empty,
-
-        ee = join(location, "e"),
-        
-        configP = join(location, "c"),
-        
-        isstr = this.isstr,
+        ee = "",
+        configP = "",
         
         config = null,
-        mkdirO = this.mkdirO,
         ps = null,
 
-        L = 0,
-        
-        z = this.z,
-        offset = this.offset
-    ;
+        mx = this.mx,
+        em = this.empty,
 
-    this.configP = configP;
-    
-    (
-        this.r = rules
-    )
-    .reduce(
-        (o, R, i,a) => {
-            var I = types[i];
-            return (
-                (
-                    a[i] = (
-                        isstr(I)
-                        ? R
-                        : o[I]()
-                    )
-                ),
-                o
-            );
-        },
-        offset
-    );
+        isstr = this.isstr,
+        z = this.z,
+
+        offset = this.offset,
+        mkdirO = this.mkdirO
+    ;
 
     (
         force
@@ -70,6 +49,10 @@ function Table(
         : existsSync(location)
     )
     ? (
+        (this.configP = configP = config.configP),
+
+        (rules = this.r = config.r),
+
         (
             L = (
                 (
@@ -88,7 +71,6 @@ function Table(
         (ps = config.ps),
 
         (this.P = config.P),
-        (this.SP = config.SP),
         (this.OP = config.OP),
         
         (this.il = config.il),
@@ -136,6 +118,32 @@ function Table(
         )
     )
     : (
+
+
+        (ee = join(location, "e")),
+
+        (this.configP = configP = join(location, "c")),
+        
+        (
+            this.r = rules
+        )
+        .reduce(
+            (o, R, i,a) => {
+                var I = types[i];
+                return (
+                    (
+                        a[i] = (
+                            isstr(I)
+                            ? R
+                            : o[I]()
+                        )
+                    ),
+                    o
+                );
+            },
+            offset
+        ),
+        
         (ps = (
             Array.from(
                 types,
@@ -153,7 +161,7 @@ function Table(
                 }
             )
         )),
-        (this.idsl = idslength),
+        (this.idsl = 1),
 
         (this.s = size),
         (this.ss = Array.from(size, (s) => (
@@ -188,7 +196,6 @@ function Table(
 
 
         (this.P = Array.from(types, z)),
-        (this.SP = Array.from(types, z)),
         (this.OP = Array.from(types, z)),
 
         (
@@ -235,7 +242,7 @@ function Table(
 
     this.ps = ps;
 
-    this.OB = Buffer.alloc(4);
+    this.OB = Buffer.alloc(2);
     
     this.etypes = [
         rules, // unused
