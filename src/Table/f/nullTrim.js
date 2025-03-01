@@ -8,6 +8,6 @@ export default (
                 break;
             }
         };
-        return s.substring(0, i + 1);
+        return s.substring(0, (i + 1));
     }
 )

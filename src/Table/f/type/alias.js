@@ -18,5 +18,4 @@ export default ((i,s,b,f) => [
     f,
 
     s,
-    s,
 ])("int", "str", "bool", "float");

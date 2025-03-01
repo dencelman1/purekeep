@@ -183,7 +183,6 @@ export default (
                 EF = E[f];
             };
         };
-        A[0] = f;
-        return E;
+        return f;
     }
 );

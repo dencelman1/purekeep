@@ -10,9 +10,10 @@ export default (
     new Table(
         join(process.cwd(), "test/givtak"),
         Number.MAX_SAFE_INTEGER,
+        1,
         true,
         [
-            _.str_utf8,
+            _.str8,
             _.bool,
             _.float32,
         ],

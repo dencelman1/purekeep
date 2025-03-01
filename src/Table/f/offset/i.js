@@ -10,7 +10,7 @@ export default ((byteLength, o, t, f, e) => [
 
     f,e,
 
-    (v) => byteLength(v, "utf16le"),
+    (v) => byteLength(v, "utf16le")
 ])(
     Buffer.byteLength,
     () => 1,

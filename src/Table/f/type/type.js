@@ -2,7 +2,7 @@
 
 export default {
     int8: 0,
-    str_utf8: 1,
+    str8: 1,
     bool: 2,
 
     int16: 3,
@@ -17,5 +17,5 @@ export default {
     float32: 10, // -3.141592653589793 - 3.141592653589793
     float64: 11,
     
-    str_utf16: 12,
+    str16le: 12,
 };

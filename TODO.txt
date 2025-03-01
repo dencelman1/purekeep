@@ -1,16 +1,6 @@
 type_of_string_text; // (unlimited (type of string) with length > 255);
 version_check;
 
-[ bl ]:
-
-- has and isin for float and integer without conversion to string;
-
-- NEW_TYPES () {
-    1 utf32;
-    2 array that supports digits with (32, 64) bytes;
-};
-
-
 [ now ]:
 
 task STRING {
@@ -35,7 +25,8 @@ task STRING {
 
 3 update;
 
-4 delete;
+4 delete ( holes realisation );
+4.5 holes in create;
 
 
 5 after every CRUD operation (
@@ -48,13 +39,20 @@ task STRING {
     )
 );
 
-6 sharding;
-
-7 inner mutex (own instead of fastify);
+6 sharding ( for ids after Number.MAX_SAFE_INTEGER ( for field value array and for field strings arrays ) );
+7 inner mutex (own instead of fastify ( puver ) );
 
 [ Q, to, numToStr ];
 
 
 
+[ bl ]:
+
+- has and isin for float and integer without conversion to string;
+
+- NEW_TYPES () {
+    1 utf32;
+    2 array that supports digits with (32, 64) bytes;
+};
 
 19c; 21 (100k euro);

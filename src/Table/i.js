@@ -12,6 +12,7 @@ import {join} from 'path';
 function Table(
     location,
     idlimit,
+    idslength,
     force,
     types,
     rules,
@@ -23,27 +24,26 @@ function Table(
         em = this.empty,
 
         ee = join(location, "e"),
-        he = join(location, "h"),
-
+        
         configP = join(location, "c"),
         
         isstr = this.isstr,
         
         config = null,
         mkdirO = this.mkdirO,
-        EL = 0,
-
-        L = 0,
         ps = null,
 
+        L = 0,
+        
         z = this.z,
-        sdi = null,
         offset = this.offset
     ;
 
     this.configP = configP;
     
-    ( this.r = rules )
+    (
+        this.r = rules
+    )
     .reduce(
         (o, R, i,a) => {
             var I = types[i];
@@ -63,7 +63,7 @@ function Table(
 
     (
         force
-        ?(
+        ? (
             rmSync(location, mkdirO),
             false
         )
@@ -85,37 +85,81 @@ function Table(
                 .L
             )
         ),
+        (ps = config.ps),
+
         (this.P = config.P),
         (this.SP = config.SP),
+        (this.OP = config.OP),
+        
         (this.il = config.il),
         
         (this.v = this.versionCheck(config.v)),
-        (this.t = config.t),
+        (this.t = types = config.t),
         (this.f = config.f),
         (EL = config.EL),
         (this.s = config.s),
         (this.ss = config.ss),
+        (this.idsl = config.idsl),
 
         (
-            sdi =
-            this.sdi = (
-                new Map(
-                    config
-                    .sdi
-                    .map(
-                        (v, i) => [
-                            i,
-                            new Map(v)
-                        ]
-                    )
+            this.sd = (
+                config
+                .sdi
+                .map(
+                    (v, i) => {
+                        var m = null;
+                        return (
+                            isstr( types[i] )
+                            ? (
+                                (
+                                    m = (
+                                        new Map(
+                                            v
+                                            .reduce(
+                                                (v,V,I) => (
+                                                    this.sdfrom(ps[i], V, V[2]),
+                                                    v
+                                                ),
+                                                v
+                                            )
+                                        )
+                                    )
+                                ),
+                                
+                                m
+                            )
+                            : null
+                        );
+                    }
                 )
             )
         )
     )
     : (
+        (ps = (
+            Array.from(
+                types,
+                (_,i) => {
+                    var
+                        I = i.toString(),
+                        p = join(ee, I),
+                        O = join(ee, i.toString() + I + "o")
+                    ;
+                    
+                    writeFileSync(p, em);
+                    writeFileSync(O, em);
+
+                    return p;
+                }
+            )
+        )),
+        (this.idsl = idslength),
+
         (this.s = size),
         (this.ss = Array.from(size, (s) => (
-            s ? offset[s](): s
+            s
+            ? offset[s]()
+            : s
         ))),
 
         (this.f = (( this.t = types ).length)),
@@ -128,12 +172,8 @@ function Table(
                 rules
                 .reduce(
                     (
-                        (r,f, i) => (
-                            (r + f) + Number(
-                                isstr(
-                                    types[i]
-                                )
-                            )
+                        (r,f) => (
+                            r + f
                         )
                     ),
                     0
@@ -149,20 +189,21 @@ function Table(
 
         (this.P = Array.from(types, z)),
         (this.SP = Array.from(types, z)),
+        (this.OP = Array.from(types, z)),
 
         (
             this.L = L = 0
         ),
 
         (
-            sdi =
-            this.sdi = new Map(
+            this.sd = (
                 types
                 .map(
-                    (_, i) => [
-                        i,
-                        new Map()
-                    ]
+                    (v) => (
+                        isstr(v)
+                        ? new Map()
+                        : null
+                    )
                 )
             )
         ),
@@ -170,56 +211,32 @@ function Table(
         mkdirSync(location, mkdirO),
         mkdirSync(ee, mkdirO),
         
-        writeFileSync( he, em ),
-
         this.confdump()
     );
 
-    this.d = Array.from(
-        (
-            ps = Array.from(
-                types,
-                (_,i) => {
-                    var p = join(ee, i.toString());
-                    writeFileSync(p, em)
-                    return p;
-                }
+    this.od = Array.from(
+        ps,
+        (p, i) => (
+            openSync(
+                (
+                    p
+                    + i.toString()
+                    + "o"
+                ),
+                "a+"
             )
-        ),
+        )
+    );
+    
+    this.d = Array.from(
+        ps,
         (p) => openSync(p, 'a+')
     );
 
-    this.sd = (
-        Array.from(
-            ps,
-            (p,i) => {
-                var t = types[i];
-                return (
-                    isstr(t)
-                    ? (
-                        new Map(
-                            Array.from( sdi.get( i ) )
-                            .map(
-                                (v) => [
-                                    v[0],
-                                    openSync(
-                                        (
-                                            p
-                                            + "s"
-                                            + v[1].toString()
-                                        ),
-                                        'a+'
-                                    )
-                                ]
-                            )
-                        )
-                    )
-                    : null
-                )
-            }
-        )
-    );
+    this.ps = ps;
 
+    this.OB = Buffer.alloc(4);
+    
     this.etypes = [
         rules, // unused
 

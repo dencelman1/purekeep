@@ -1,17 +1,17 @@
+import { readSync, writeSync } from 'fs';
 
 
 export default (
     function(
         E,
         L,
-        a // int array for ids
+        a // int[][] for ids
     ) {
-
-        // TODO: put into db clearly if (holes) { in holes }
         var
             P = this.P,
             SP = this.SP,
-            OP = this.OP,
+
+            OB = this.OB,
             
             f = this.f,
 
@@ -44,7 +44,10 @@ export default (
                 j = 0,
                 i = 0,
                 e = E[j],
-                l = L[j]
+                l = L[j],
+                SD = null,
+                LENGTH = 0,
+                STRING_VALUE= null
             ;
             j < EL;
             (
@@ -64,16 +67,48 @@ export default (
                 P[i] += (
                     isstr(T = ty[i])
                     ? (
-                        (SP[i] += saveField(sd[i], (lb = l[i]), ss[i], SP[i])),
-                        (OP[i] += saveField(od[i], (lb = l[i]), 4, OP[i])),
-                        saveField(d[i], e[i], bfrom[s[i]](lb,0,0), P[i])
+
+
+                        (LENGTH = this.offset[T](STRING_VALUE = e[i])),
+
+                        
+                        writeSync(od[i], OB, 4, OP[i]),
+                        (OP[i] += 4),
+
+                        (
+                            SD = (
+                                this.sdopen(
+                                    sd[
+                                        i
+                                    ][
+                                        
+                                    ]
+                                )
+                            )[0]
+                        ),
+                        
+                        saveField(
+                            SD.d,
+                            STRING_VALUE,
+                            bfrom[s[i]](lb,0,0),
+                            P[i]
+                        ),
+                        
+                        (
+                            SP[i] += (
+                                saveField(
+                                    d[i],
+                                    (lb = l[i]),
+                                    ss[i],
+                                    SP[i]
+                                )
+                            )
+                        )
                     )
                     : saveField(d[i], e[i], r[i], P[i])
                 );
             };
         };
-        
-        a[0] = j;
         
         return (
             (this.L = el),

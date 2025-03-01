@@ -73,9 +73,9 @@ import d from './init.js';
 
                 getB(bB, 0, 0),
                 getF(bF, 0, 0),
-            ]),
-
-            console.dir(d.create(BA,LA,IDS))
+            ])
+            
+            // , console.dir(d.create(BA,LA,IDS))
             
             // console.log(JSON.parse(d.toJson(d.read(5, 1), keys))),
 

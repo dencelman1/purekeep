@@ -17,6 +17,6 @@ export default (
         (b,o,_) => b.readFloatLE(o),
         (b,o,_) => b.readDoubleLE(o),
 
-        (b,o,l) => b.toString('utf16le', o, l),
+        (b,o,l) => b.toString('utf16le', o, l)
     ]
 )
