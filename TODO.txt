@@ -18,16 +18,16 @@ task STRING {
 
 [ Based on array length ( with fixed limit ) ( prepared Buffers in array ) ]:
 1 create;
-
 2 read;
+
 
 [ With limit or those, which falls under the terms of the request ]:
 
 3 update;
-
 4 delete ( holes realisation );
 4.5 holes in create;
 
+4.6 ( read / update / delete )_by_id
 
 5 after every CRUD operation (
     (
@@ -47,6 +47,9 @@ task STRING {
 
 
 [ bl ]:
+
+
+- create_many with less amount of file system calls;
 
 - has and isin for float and integer without conversion to string;
 

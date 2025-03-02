@@ -2,6 +2,6 @@
 
 export default (
     function() {
-        return Array.from(this.r, this.fieldfrom);
+        return Array.from(this.s, this.arrayfrom);
     }
 )

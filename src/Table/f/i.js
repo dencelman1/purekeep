@@ -11,6 +11,7 @@ export * from './type/i.js';
 export * from './version/i.js';
 
 export * from './cond/i.js';
+export * from './id/i.js';
 
 export {default as offset} from './offset/i.js';
 
@@ -19,3 +20,5 @@ export {default as nullTrim} from './nullTrim.js';
 
 export {default as confdumpV} from './confdumpV.js';
 export {default as confdump} from './confdump.js';
+
+export {default as funcs} from './funcs.js';

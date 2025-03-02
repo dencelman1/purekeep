@@ -1,17 +1,23 @@
-import z from './z.js';
-import {arrayFromO2} from '../../O/i.js';
-
 
 
 export default (
-    (af) => function(i) {
-        var o = this.arrayFromO;
+    function(l) {
+        var
+            o = this.arrayFromO2,
+            v = (
+                (o.length = l),
+                Array.from(o, this.NULL)
+            )
+        ;
 
-        o.length = i;
-        arrayFromO2.length = this.idsl;
+        for (
+            var i = 0;
+            i < l;
+            i++
+        ) {
+            v[i] = this.id();
+        };
 
-        return Array.from(o, af);
+        return v;
     }
-)(
-    () => Array.from(arrayFromO2, z)
-)
+);

@@ -1,7 +1,7 @@
 
 import {
     Table,
-    _
+    Type as _
 } from '../src/i.js';
 
 import {join} from 'path';

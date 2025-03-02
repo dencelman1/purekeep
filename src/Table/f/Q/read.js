@@ -1,4 +1,4 @@
-import { readSync } from 'fs';
+import { readSync, writeSync } from 'fs';
 
 
 /*
@@ -10,6 +10,7 @@ import { readSync } from 'fs';
     LQ, // logic queries
 
     QV, // Query values which uses in queries (Q) conditions
+    QI, // Query IDS (same as QV);
 
     FI // fields (which fields put into E, L)
 
@@ -27,197 +28,153 @@ import { readSync } from 'fs';
 export default (
     function(
         E,
-        L,
-        
+        SV,
         A,
 
-
         Q,
-        LQ,
-
         QV,
 
         FI
     ) {
         var
-            FullLength = this.L,
-
-            compare = this.compare,
-            logic = this.logic,
-            etypes = this.etypes,
-
-            QL = Q.length,
-            f = 0,
+            q = 0,
 
             EL = E.length,
 
-            ba = null,
-            bb = null,
+            COUNT = this.L[0],
+            QL = Q.length,
 
-            ty = this.t,
+            cond = this.compare,
+            logic = this.logic,
 
+            em = this.em,
+            r = this.r,
+            t = this.t,
+
+            s = this.s,
+
+            bfrom = this.bfrom,
+
+            copy = this.copy,
             isstr = this.isstr,
 
             d = this.d,
             sd = this.sd,
             od = this.od,
-
-            bfrom = this.bfrom,
-            bto = this.bto,
-
-            s = this.s,
-            ss = this.ss,
-
-            r = this.r,
-
-            Q1 = 0,
-            FIL = FI.length,
-            
             OB = this.OB,
-            em = this.em
-            
+
+            FI_LENGTH = FI.length,
+            readNumber = this.readNumber
         ;
+        
         for (
             var
-                i = 0,
                 a = false,
-                j = 0,
-                x = 0,
-                z = 0,
+
+                i = A[q],
                 
-                FIZ = 0,
-                rfiz = 0,
-
-                lb = null,
+                ai = 0,
                 
-                SD = null,
-                T = 0,
+                VALUE_TYPE = 0,
 
-                LENGTH = L[0],
-                EF = E[0],
+                CURRENT_E = E[q],
+                CURRENT_SV = SV[q],
 
-                LENGTH_BF = em,
-                LENGTH_VALUE = 0
+                FIELD_ID = 0,
+
+                I_POS = 0,
+                IV = i[I_POS],
+
+                FI_I = 0
             ;
-            (f < EL) && (i < FullLength);
-            (
-                i++,
-                (x = j = 0),
-                (a = false)
-            )
+            (IV < COUNT);
+            IV++
         ) {
+
             for (
-                ;
-                (j < QL);
-                j += 4
+                ai = 0;
+                ai < QL;
+                ai += 4
             ) {
                 if (
-                    (j > 0)
+                    (ai > 0)
                     &&
-                    !(a = logic[x++](a))
+                    !(
+                        logic[ Q[ai++] ](a)
+                    )
                 ) {
-                    break;
+                    break
                 };
-                
-                // TODO 1:
-                // Q[j], Q[j+1], Q[j+2], Q[j+3];
-                // readSync(d[j], buffer, 0, stats.size, 0)
 
-                // * here i can cache values which could be usefull in TODO 2;
-
-                ba = Buffer.from("TODO 1: here value from ");
-
-                (
-                    (
-                        Q1 = (
-                            Q[
-                                j
-                                + 1
-                            ]
-                        )
-                    ) === 0
-                )
-                ? (
-                    i === Q[ j + 3 ]
-                )
-                : (
-                    (
-                        a = (
-                            (
-                                compare[
-                                    etypes[ Q1 ][ Q[ j ] ]
-                                ]
-                            )[
-                                Q[ j + 2 ]
-                            ]
-                        )
-                    )(
-                        ba,
-                        QV[
-                            Q[
-                                j + 3
-                            ]
+                a = (
+                    cond[
+                        FIELD_ID = Q[ai]
+                    ][
+                        Q[
+                            ai + 2
                         ]
-                        
+                    ](
+                        (
+                            (VALUE_TYPE = Q[ai+1])
+                            ? (
+                                this.readString(
+                                    FIELD_ID,
+                                    CURRENT_E[FIELD_ID],
+                                    IV,
+                                    OB,
+                                    r[FIELD_ID],
+                                    CURRENT_SV[FIELD_ID],
+                                    bfrom[r[FIELD_ID]],
+                                    
+                                    d, od, sd
+                                )
+                            )
+                            : readNumber(d[FIELD_ID], CURRENT_E[ FIELD_ID ], r[FIELD_ID], IV)
+                        ),
+                        (QV[ Q[ ai + 3 ] ])
                     )
                 );
             };
+            console.log(a);
 
-            if (a) {
-                
-                for (; z < FIL; z++) {
-                    FIZ = FI[z];
-                    
-                    if (
-                        isstr(
-                            T = ty[v]
+
+            if (
+                a
+            ) {
+                for(
+                    FI_I = 0
+                    ; FI_I < FI_LENGTH
+                    ; FI_I++
+                ){
+                    isstr( t[ FIELD_ID = FI[ FI_I ] ] )
+                    ? (
+                        this.readString(
+                            FIELD_ID,
+                            CURRENT_E[FIELD_ID],
+                            IV,
+                            OB,
+                            r[FIELD_ID],
+                            CURRENT_SV[FIELD_ID],
+                            bfrom[r[FIELD_ID]],
+                            
+                            d, od, sd
                         )
-                    ) {
-
-                        // length find and put;
-                        // offset find;
-                        // with offset find and put string value;
-
-                        
-                        readSync(
-                            d[ FIZ ],
-                            (LENGTH_BF = LENGTH[ FIZ ]),
-                            0,
-                            (rfiz = ss[ FIZ ]),
-                            (i * rfiz)
-                        );
-                        
-                        SD = (
-                            this.sdopen(
-                                FIZ,
-                                (LENGTH_VALUE = bfrom[T](LENGTH_BF, 0,0))
-                            )
-                        );
-                        
-                        readSync(
-                            SD.d,
-                            EF[ FIZ ],
-                            0,
-                            LENGTH_VALUE,
-                            SD[3]
-                        );
-                    }
-                    else {
-                        readSync(d[ FIZ ], EF[ FIZ ], 0, (rfiz = r[ FIZ ]), (i * rfiz));
-                    };
-                    
+                    )
+                    : readNumber(d[FIELD_ID], CURRENT_E[ FIELD_ID ], r[FIELD_ID], IV)
                 };
+
+                if ((++q) === EL) {
+                    break;
+                };
+
+                i[I_POS] = IV;
                 
-                z = 0;
-
-                A[++f][
-                    0 // TODO:
-                ] = i;
-                EF = E[f];
-                LENGTH = L[f];
+                i = i.reduce(copy, A[q]);
+                CURRENT_E = E[q];
+                CURRENT_SV = SV[q];
             };
-
         };
-        return f;
+
+        return q;
     }
 );

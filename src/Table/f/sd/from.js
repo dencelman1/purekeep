@@ -3,14 +3,13 @@ import {openSync} from 'fs';
 
 
 export default (
-    function(p, v, l) {
-
+    function(p, v) {
         v[0] = (
             openSync(
-                `${p}l${l}`,
+                `${p}l${v[2]}`,
                 'a+'
             )
         );
-        return v;
+        return undefined;
     }
 )

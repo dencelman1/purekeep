@@ -1,119 +1,93 @@
-import { readSync, writeSync } from 'fs';
 
 
 export default (
     function(
         E,
-        L,
-        a // int[][] for ids
+        AR,
+        a, // int[][] for ids
     ) {
         var
-            P = this.P,
-            SP = this.SP,
-
-            OB = this.OB,
+            L = this.L
             
-            f = this.f,
-
-            d = this.d,
-            sd = this.sd,
-            od = this.od,
-
-            r = this.r,
-            ss = this.ss,
-            s = this.s,
-
-            ty = this.t,
-
-            T = 0,
+            , P = this.P
+            , OP = this.OP
             
-            isstr = this.isstr,
-
-            bfrom = this.bfrom,
+            , OB = this.OB
             
-            saveField = this.saveField,
+            , f = this.f
 
-            lb = null,
-            EL = E.length,
+            , d = this.d
+            , sd = this.sd
+            , od = this.od
 
-            el = this.L
+            , r = this.r
+
+            , t = this.t
+
+            , T = 0
+            
+            , isstr = this.isstr
+            , bfrom = this.bfrom
+            
+            , saveField = this.saveField
+
+            , LENGTH = 0
+            , LENGTH_BUFFER = this.em
+            , SD = null
+            , i = 0
+
+            
         ;
 
         for (
-            var
-                j = 0,
-                i = 0,
-                e = E[j],
-                l = L[j],
-                SD = null,
-                LENGTH = 0,
-                STRING_VALUE= null
             ;
-            j < EL;
-            (
-                (e = E[++j]),
-                (a[j][
-                    0 // TODO:
-                ] = (el++)),
-
-                (l = L[j]),
-                
-                (i = 0)
-            )
+            i < f;
+            i++
         ) {
-            for (
-                ;
-                i < f;
-                i++
-            ) {
-                P[i] += (
-                    isstr(T = ty[i])
-                    ? (
-                        (lb = l[i])
-
-                        , (
-                            LENGTH = (
-                                bfrom[s[i]](lb,0,0)
-                            )
-                        )
-
-                        , (
-                            SD = (
-                                this.sdopen(
-                                    i,
-                                    LENGTH
+            P[i] += (
+                isstr(T = t[i])
+                ? (
+                    (
+                        SD = this.sdopen(
+                            sd[i],
+                            i,
+                            (
+                                LENGTH = (
+                                    bfrom[T = r[i]](
+                                        (
+                                            LENGTH_BUFFER = E[i]
+                                        )
+                                        , 0
+                                        , 0
+                                    )
                                 )
                             )
                         )
-                        , OB.writeUInt16LE(SD[1]++, 0)
-                        , writeSync(od[i], OB, 0, 2, OP[i])
-                        , ( OP[i] += 2 )
+                    ),
+                    
+                    (SD[3] += saveField(
+                        SD[0],
+                        AR[i],
+                        LENGTH,
+                        SD[3]
+                    )),
 
-                        , (
-                            P[i] += (
-                                saveField(d[i], lb, ss[i], P[i])
-                            )
-                        )
+                    OB.writeUInt16LE(SD[1]++),
+                    (OP[i] += saveField(od[i], OB, 2, OP[i])),
 
-                        , (
-                            SD[3] += (
-                                saveField(
-                                    SD.d,
-                                    e[i],
-                                    bfrom[s[i]](lb, 0,0),
-                                    SD[3]
-                                )
-                            )
-                        )
-                    )
-                    : saveField(d[i], e[i], r[i], P[i])
-                );
-            };
+                    saveField(d[i], LENGTH_BUFFER, T, P[i])
+                )
+                : saveField(d[i], E[i], r[i], P[i])
+            );
         };
-        
-        return (
-            (this.L = el),
-            EL
+
+        L[0] = (
+            (
+                a[0] = L[0]
+            )
+            + 1
         );
+        
+        return 1;
     }
 )

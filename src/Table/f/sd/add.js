@@ -1,3 +1,4 @@
+import {openSync} from 'fs';
 
 
 // [

@@ -1,11 +1,18 @@
 import {writeSync} from 'fs';
 
+/*
+    d, // (d||sd)[i]
+    b, // (e||l)[i]
+    s, // (r||ss)[i]
+    P, // P[i]
+*/
+
 export default (
     (
-        d, // (d||sd)[i]
-        b, // (e||l)[i]
-        s, // (r||ss)[i]
-        P, // P[i]
+        d,
+        b,
+        s,
+        P,
     ) => (
         writeSync(
             d,
