@@ -37,109 +37,67 @@ export default (
         FI
     ) {
         var
-            q = 0,
+            q = 0
 
-            EL = E.length,
+            , EL = E.length
 
-            COUNT = this.L[0],
-            QL = Q.length,
+            , COUNT = this.L[0]
+            , QL = Q.length
 
-            cond = this.compare,
-            logic = this.logic,
+            , cond = this.compare
+            , logic = this.logic
 
-            em = this.em,
-            r = this.r,
-            t = this.t,
+            , em = this.em
+            , r = this.r
+            , t = this.t
 
-            s = this.s,
+            , bfrom = this.bfrom
 
-            bfrom = this.bfrom,
+            , copy = this.copy
+            , isstr = this.isstr
 
-            copy = this.copy,
-            isstr = this.isstr,
+            , d = this.d
+            , sd = this.sd
+            , od = this.od
 
-            d = this.d,
-            sd = this.sd,
-            od = this.od,
-            OB = this.OB,
+            , OB = this.OB
 
-            FI_LENGTH = FI.length,
-            readNumber = this.readNumber
+            , FI_LENGTH = FI.length
+            , readNumber = this.readNumber
+
+            , readString = this.readString
+
+            , sdopen = this.sdopen
+
+            , ps = this.ps
+            , sdadd = this.sdadd
+            , query = this.query
         ;
         
         for (
             var
-                a = false,
-
                 i = A[q],
                 
-                ai = 0,
-                
-                VALUE_TYPE = 0,
-
                 CURRENT_E = E[q],
                 CURRENT_SV = SV[q],
+
+                CURRENT_F = em,
 
                 FIELD_ID = 0,
 
                 I_POS = 0,
                 IV = i[I_POS],
 
-                FI_I = 0
+                FI_I = 0,
+                LENGTH = 0,
+
+                RFIELD = 0
             ;
             (IV < COUNT);
             IV++
         ) {
-
-            for (
-                ai = 0;
-                ai < QL;
-                ai += 4
-            ) {
-                if (
-                    (ai > 0)
-                    &&
-                    !(
-                        logic[ Q[ai++] ](a)
-                    )
-                ) {
-                    break
-                };
-
-                a = (
-                    cond[
-                        FIELD_ID = Q[ai]
-                    ][
-                        Q[
-                            ai + 2
-                        ]
-                    ](
-                        (
-                            (VALUE_TYPE = Q[ai+1])
-                            ? (
-                                this.readString(
-                                    FIELD_ID,
-                                    CURRENT_E[FIELD_ID],
-                                    IV,
-                                    OB,
-                                    r[FIELD_ID],
-                                    CURRENT_SV[FIELD_ID],
-                                    bfrom[r[FIELD_ID]],
-                                    
-                                    d, od, sd
-                                )
-                            )
-                            : readNumber(d[FIELD_ID], CURRENT_E[ FIELD_ID ], r[FIELD_ID], IV)
-                        ),
-                        (QV[ Q[ ai + 3 ] ])
-                    )
-                );
-            };
-            console.log(a);
-
-
             if (
-                a
+                query(IV,QL, OB, Q,QV, CURRENT_E,CURRENT_SV, cond,logic, readString,readNumber, sdopen,sdadd, d,sd,od)
             ) {
                 for(
                     FI_I = 0
@@ -148,16 +106,29 @@ export default (
                 ){
                     isstr( t[ FIELD_ID = FI[ FI_I ] ] )
                     ? (
-                        this.readString(
+                        readString(
                             FIELD_ID,
-                            CURRENT_E[FIELD_ID],
+                            (CURRENT_F = CURRENT_E[FIELD_ID]),
                             IV,
                             OB,
-                            r[FIELD_ID],
+                            (RFIELD = r[FIELD_ID]),
                             CURRENT_SV[FIELD_ID],
-                            bfrom[r[FIELD_ID]],
                             
-                            d, od, sd
+                            sdopen(
+                                sd[FIELD_ID],
+                                FIELD_ID,
+                                (
+                                    LENGTH = (
+                                        bfrom[ RFIELD ]( CURRENT_F,0,0 )
+                                    )
+                                ),
+                                ps,
+                                sdadd
+                            ),
+                            LENGTH,
+                            
+                            d,
+                            od
                         )
                     )
                     : readNumber(d[FIELD_ID], CURRENT_E[ FIELD_ID ], r[FIELD_ID], IV)

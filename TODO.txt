@@ -1,31 +1,17 @@
-type_of_string_text; // (unlimited (type of string) with length > 255);
-version_check;
 
 [ now ]:
 
-task STRING {
-    1 string have (length field) and for lengths we create a separated file;
+0 holes and sharding (
+    holes=create,delete,update(with strings);
+    sharding=create,delete,read,update;
+);
 
-    2 uint: [] length (8, 16, 32, 64 bits), and which code value have each char (8, 16, 32 bits);
-
-    3 than whan we compare strings, we indicate comparison of (
-        3.1 length
-        ||
-        3.2 string value
-    );
-};
-
-
-[ Based on array length ( with fixed limit ) ( prepared Buffers in array ) ]:
 1 create;
 2 read;
 
-
-[ With limit or those, which falls under the terms of the request ]:
-
 3 update;
-4 delete ( holes realisation );
-4.5 holes in create;
+4 delete;
+
 
 4.6 ( read / update / delete )_by_id
 
@@ -39,18 +25,26 @@ task STRING {
     )
 );
 
-6 sharding ( for ids after Number.MAX_SAFE_INTEGER ( for field value array and for field strings arrays ) );
-7 inner mutex (own instead of fastify ( puver ) );
 
-[ Q, to, numToStr ];
+[ docs ]:
+
+a = Number.MAX_SAFE_INTEGER;
+
+b = 4294967295 (max of uint32)
+
+FIELDS_AMOUNT < b;
+SHARD_ENTRIES < a;
+
+
+SHARD_AMOUNT <= b
+
+ENTRIES_CAPACITY = ( ( a ^ 2 ) + a );
 
 
 
 [ bl ]:
 
-
-- create_many with less amount of file system calls;
-
+- create_many with less amount of file system calls (assemble all changes in one and make on file system call);
 - has and isin for float and integer without conversion to string;
 
 - NEW_TYPES () {
@@ -58,4 +52,4 @@ task STRING {
     2 array that supports digits with (32, 64) bytes;
 };
 
-19c; 21 (100k euro);
+- version_check;

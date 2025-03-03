@@ -10,19 +10,25 @@ import {openSync} from 'fs';
 
 
 export default (
-    function(
+    (
         p,
         l,
         o,
-    ) {
+    ) => {
+        var P = `${p}l${l}`;
         return [
             openSync(
-                `${p}l${l}`,
+                P,
                 'a+'
             ),
             o,
             l,
+            0,
+            openSync(
+                P + "o",
+                'a+'
+            ),
             0
-        ];
+        ]
     }
 );

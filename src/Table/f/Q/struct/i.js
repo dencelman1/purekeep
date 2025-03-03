@@ -23,3 +23,7 @@ export {default as copy} from './copy.js';
 
 export {default as readString} from './readString.js';
 export {default as readNumber} from './readNumber.js';
+
+export {default as value }from './value.js';
+
+export {default as writeString} from './writeString.js';

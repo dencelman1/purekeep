@@ -35,7 +35,9 @@ export default (
             , LENGTH_BUFFER = this.em
             , SD = null
             , i = 0
-
+            , sdopen = this.sdopen
+            , sdadd = this.sdadd
+            , ps = this.ps
             
         ;
 
@@ -48,7 +50,7 @@ export default (
                 isstr(T = t[i])
                 ? (
                     (
-                        SD = this.sdopen(
+                        SD = sdopen(
                             sd[i],
                             i,
                             (
@@ -61,7 +63,9 @@ export default (
                                         , 0
                                     )
                                 )
-                            )
+                            ),
+                            ps,
+                            sdadd
                         )
                     ),
                     

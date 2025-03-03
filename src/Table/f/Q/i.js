@@ -6,3 +6,4 @@ export {default as update} from './update.js';
 export {default as delete} from './delete.js';
 
 export * from './struct/i.js';
+export * from './by/i.js';

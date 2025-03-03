@@ -1,23 +1,51 @@
 
 export default (
-    function(B, k, l) {
+    function(B, AR, keys) {
         var
             V = "{",
-            types = this.t,
-            L = types.length,
-            TypeAlias = this.TypeAlias
+            bfrom = this.bfrom,
+            t = this.t,
+            s = this.s,
+            r = this.r,
+            type = 0,
+            isstr = this.isstr,
+            str = JSON.stringify,
+            L = B.length
         ;
+        
         for (
             var
                 i = 0,
-                type = ""
+                type = 0
             ;
-            i<L;
+            i < L;
             i++
         ) {
-            type = types[i];
-            V+=`"${k[i]}":${JSON.stringify(this[ TypeAlias[type] ](B[i], i, 0))},`;
+            V += `\n    "${keys[i]}":`;
+
+            V += str(
+                isstr(type = t[i])
+                ? (
+                    bfrom[type](
+                        AR[i],
+                        0,
+                        bfrom[ r[i] ]( B[i],0,0 )
+                    )
+                )
+                : bfrom[type](B[i], 0,0)
+            );
+
+            V += ",";
         };
-        return V.substring(0, V.length - 1) + "}";
+        return (
+            V.substring(
+                0,
+                (
+                    V.length
+                    - 1
+                )
+            )
+            + "\n}"
+        );
     }
 )

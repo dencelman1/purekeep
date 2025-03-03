@@ -14,11 +14,12 @@ export default (
         OB,
         SIZE,
         SV,
-        gl,
         
-        d, od, sd
+        SD0,
+        LENGTH,
+        
+        d, od
     ) {
-        var LENGTH = 0;
         return (
             readSync(
                 d[F],
@@ -37,16 +38,7 @@ export default (
             ),
 
             readSync(
-                (
-                    this
-                    .sdopen(
-                        sd[F],
-                        F,
-                        (
-                            LENGTH = gl(BL,0,0)
-                        )
-                    )
-                )[0],
+                SD0,
                 SV,
                 0,
                 LENGTH,

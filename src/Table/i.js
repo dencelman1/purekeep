@@ -229,7 +229,7 @@ function Table(
     
     this.d = Array.from(
         ps,
-        (p) => openSync(p, 'a+')
+        (p) => [openSync(p+"p0", 'a+')]
     );
 
     this.ps = ps;
@@ -242,6 +242,10 @@ function Table(
         rules,
         arraysize
     ];
+
+    this.FORID = this.id();
+    this.FORENTRY = this.entry();
+
 };
 
 Table.prototype = f;

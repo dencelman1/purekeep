@@ -1,10 +1,7 @@
     
 import d from './init.js';
+import keys from './keys.js';
 
 export default (
-    d.funcs([
-        'n',
-        'b',
-        'f'
-    ])
+    d.funcs(keys)
 );
