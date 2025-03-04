@@ -5,8 +5,8 @@ export default (
     function() {
         return (
             writeFileSync(
-                this.configP,
-                this.confdumpV(this),
+                this.dP,
+                this.confdumpV(this.confkeys, this),
                 "utf8"
             )
         )

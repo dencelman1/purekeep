@@ -12,35 +12,7 @@
 3 update;
 4 delete;
 
-
 4.6 ( read / update / delete )_by_id
-
-5 after every CRUD operation (
-    (
-        save changes in static memory
-    )(
-        config
-    )(
-        specific value or all
-    )
-);
-
-
-[ docs ]:
-
-a = Number.MAX_SAFE_INTEGER;
-
-b = 4294967295 (max of uint32)
-
-FIELDS_AMOUNT < b;
-SHARD_ENTRIES < a;
-
-
-SHARD_AMOUNT <= b
-
-ENTRIES_CAPACITY = ( ( a ^ 2 ) + a );
-
-
 
 [ bl ]:
 

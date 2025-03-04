@@ -1,7 +1,7 @@
 
 
 export default (
-    (proto) => function(keys) {
+    function(keys) {
         var
             bfrom = this.bfrom,
             bto = this.bto,
@@ -14,7 +14,6 @@ export default (
             k = "",
             T = 0,
             isstr = this.isstr
-
         ;
         for (
             ;
@@ -39,4 +38,4 @@ export default (
         };
         return Object.fromEntries(v);
     }
-)();
+);

@@ -122,6 +122,8 @@ export default (
             };
         };
 
+        this.confsave();
+
         return u;
     }
 );

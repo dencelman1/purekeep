@@ -146,6 +146,8 @@ export default (
             };
         };
 
+        this.confsave();
+
         return q;
     }
 );

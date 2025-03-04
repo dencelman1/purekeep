@@ -16,6 +16,7 @@ export default (
         };
         
         this.L--;
+        this.confsave();
         return true;
     }
 );

@@ -91,6 +91,7 @@ export default (
             )
             + 1
         );
+        this.confsave();
         
         return 1;
     }

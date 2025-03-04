@@ -1,6 +1,8 @@
 
+// AND
+// OR
 
 export default [
-    (v) => (v), // AND
-    (v) => !(v), // OR
+    (v) => ( v ),
+    (v) => ( !( v ) ),
 ];

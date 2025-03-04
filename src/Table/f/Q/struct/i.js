@@ -7,7 +7,6 @@ export {default as NULL} from './NULL.js';
 
 
 export {default as ids} from './ids.js';
-export {default as id} from './id.js';
 
 export {default as array} from './array.js';
 
