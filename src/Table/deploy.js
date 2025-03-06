@@ -4,6 +4,11 @@ import {join} from 'path';
 
 import offset from './f/offset/i.js';
 
+import Field from '../Field/i.js';
+import ShardArray from '../Field/ShardArray.js';
+
+import isstr from './f/is/str.js';
+
 
 export default (
     (
@@ -20,6 +25,8 @@ export default (
                 recursive: true,
                 force: true
             },
+
+            arrayO = {length:0},
             
             intl = (c) => parseInt(execSync(c, o).trim()),
 
@@ -28,6 +35,7 @@ export default (
             fstype = execSync(`df -T ${lc}`).toString().split("\n")[1].split(/\s+/)[1],
 
             mx = Number.MAX_SAFE_INTEGER,
+            floor = Math.floor,
 
             max_file_amount_map = {
                 ext4: 4_000_000_000,
@@ -95,10 +103,58 @@ export default (
                 ),
 
                 MAX_DEPTH: 0,
-                
+            },
+
+            R = 0,
+
+            sa_str = (
+                () => [
+                    shards(mx, R),
+                    shards(mx, 4),
+                    EMPTY_ARRAY
+                ]
+            ),
+
+            sa_fixed = (
+                () => [
+                    shards(mx, R)
+                ]
+            ),
+
+
+            shfrom = (
+                (r,i) => {
+                    var s = isstr(v);
+                    return (
+                        ( arrayO.length = s ? 3: 1 ),
+
+                        ( R = r ),
+
+                        new Field(
+                            Array.from(
+                                arrayO,
+                                ( s ? sa_str : sa_fixed )
+                            )
+                        )
+                    );
+                }
+            ),
+            shards = (mx, length) => {
+                var
+                    eachClear = mx / length,
+                    each = Math.floor(eachClear),
+                    afterDot = 0.0,
+                    A = Array.from({length}, () => ShardArray(each))
+                ;
+                ((afterDot = eachClear - each)>0.0)
+                &&
+                A.push(ShardArray(Math.ceil(afterDot*length)));
+                return A;
             }
         ;
 
+        
+        
         rules
         .reduce(
             (o, R, i, a) => {
@@ -146,8 +202,10 @@ export default (
                         join(lc, "d"),
                         JSON.stringify(
                             {
-                                sh: EMPTY_ARRAY,
+                                filled: false,
                                 L: 0,
+                                sh: Array.from(rules,shfrom),
+                                mx,
                             },
                             null,
                             0

@@ -23,8 +23,7 @@ function Table(
     
     // save (dynamic):
 
-    this.L = D.L;
-    this.sh = new Map( D.sh );
+    Object.assign(this, D);
     
     // in-runtime:
 

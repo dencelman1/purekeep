@@ -11,6 +11,7 @@ export * from './type/i.js';
 export * from './version/i.js';
 
 export * from './cond/i.js';
+export * from './sh/i.js';
 
 export {default as offset} from './offset/i.js';
 
