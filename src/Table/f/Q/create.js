@@ -1,98 +1,112 @@
+import { writeSync, readSync } from "fs";
 
 
 export default (
     function(
-        E,
-        AR,
-        a, // int[][] for ids
+        E
     ) {
         var
-            L = this.L
-            
-            , P = this.P
-            , OP = this.OP
-            
-            , OB = this.OB
-            
-            , f = this.f
+            s = null,
+            hB = null,
 
-            , d = this.d
-            , sd = this.sd
-            , od = this.od
+            L = 0,
+            EL = 0,
 
-            , r = this.r
-
-            , t = this.t
-
-            , T = 0
+            id = 0,
             
-            , isstr = this.isstr
-            , bfrom = this.bfrom
-            
-            , saveField = this.saveField
 
-            , LENGTH = 0
-            , LENGTH_BUFFER = this.em
-            , SD = null
-            , i = 0
-            , sdopen = this.sdopen
-            , sdadd = this.sdadd
-            , ps = this.ps
+            s3 = 0,
+            d = 0,
             
+            hL = 0
         ;
 
-        for (
-            ;
-            i < f;
-            i++
-        ) {
-            P[i] += (
-                isstr(T = t[i])
-                ? (
-                    (
-                        SD = sdopen(
-                            sd[i],
-                            i,
-                            (
-                                LENGTH = (
-                                    bfrom[T = r[i]](
+        return (
+            (
+                this.filled ||= ( this.mx === L )
+            )
+            ? this.onfilled(E)
+            : (
+                this.confsave(),
+
+                (EL = this.EL),
+                (L = this.L),
+
+
+                (d = (
+                    ((hL = this.hL) > 0)
+                    ? (
+                        (this.hL = --hL),
+                        (
+                            (s = this.current_h)[2]--
+                        ),
+
+                        (s3 = (s[3] -= 8))
+                        || (
+                            hL && (
+                                this.current_h = (
+                                    this.h[--this.hc]
+                                )
+                            )
+                        ),
+
+                        readSync(s[0], (hB = this.hB), 0,8,s3),
+
+                        (
+                            s3 = (
+                                s = (
+                                    this.shwhich(
+                                        this.sh,
                                         (
-                                            LENGTH_BUFFER = E[i]
+                                            id = Number(hB.readBigUInt64LE(0))
                                         )
-                                        , 0
-                                        , 0
                                     )
                                 )
-                            ),
-                            ps,
-                            sdadd
-                        )
-                    ),
-                    
-                    (SD[3] += saveField(
-                        SD[0],
-                        AR[i],
-                        LENGTH,
-                        SD[3]
-                    )),
+                            )[3]
+                        ),
 
-                    OB.writeUInt16LE(SD[1]++),
-                    (OP[i] += saveField(od[i], OB, 2, OP[i])),
+                        s[1]
+                    )
+                    :
 
-                    saveField(d[i], LENGTH_BUFFER, T, P[i])
-                )
-                : saveField(d[i], E[i], r[i], P[i])
-            );
-        };
+                    (
+                        (
+                            s3 = (
+                                ((s = this.s)[2] === 0)
+                                ? (
+                                    s =
+                                    this.s = (
+                                        this.shswitch(
+                                            this.sh,
+                                            this.eP,
+                                            ++this.c
+                                        )
+                                    )
+                                )
+                                : s
+                            )[3]
+                        ),
+                        ( s[3] = s3 + EL ),
 
-        L[0] = (
-            (
-                a[0] = L[0]
+                        (id = L),
+
+                        s[0]
+                    )
+                )),
+
+                s[2]--,
+
+                writeSync(
+                    d,
+                    E,
+                    0,
+                    EL,
+                    s3
+                ),
+                
+                ( this.L = L + 1 ),
+                id
             )
-            + 1
         );
-        this.confsave();
-        
-        return 1;
     }
 )

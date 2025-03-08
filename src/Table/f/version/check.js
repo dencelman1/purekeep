@@ -1,4 +1,8 @@
 
 export default (
-    v => v
+    (v) => {
+        return (
+            v
+        );
+    }
 );

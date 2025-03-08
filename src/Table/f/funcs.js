@@ -1,40 +1,69 @@
 
 
 export default (
-    function(keys) {
+    function(
+        keys
+    ) {
         var
-            bfrom = this.bfrom,
-            bto = this.bto,
-            t = this.t,
-            r = this.r,
-
-            v = [],
-            i = 0,
+            o = this.arrayFromO,
             l = keys.length,
-            k = "",
-            T = 0,
-            isstr = this.isstr
+            kl = l * 2,
+            v = (
+                (o.length = kl),
+                Array.from(o, this.ENTRY)
+            )
         ;
+
+        [["", null]]
         for (
+            var
+                bfrom = this.bfrom,
+                bto = this.bto,
+                m = this.m,
+                t = this.t,
+                
+                k = "",
+
+                i = 0,
+                
+                M = m[0],
+                M0 = M[0],
+                V0 = v[0],
+                T = 0,
+                li = 0
             ;
             i < l;
             i++
         ) {
-            isstr(T = t[i])
-            ? (
-                v.push([(k = keys[i] + "v"), bfrom[T]]),
-                v.push([k+"_", bto[T]]),
+            
+            M0 = (M = m[i])[0];
 
-                v.push([
-                    (k = k.substring(0, k.length-1) + "l"),
-                    (bfrom[T = r[i]])
-                ]),
-                v.push([k+"_", bto[T]])
-            )
-            : (
-                v.push([(k = keys[i]), bfrom[T]]),
-                v.push([k+"_", bto[T]])
+            T = t[i];
+            
+            ( V0 = v[li = (i*2)] )[0] = (k = keys[i]);
+
+            V0[1] = (
+                (
+                    (o,l,a) => (
+                        (b) => a(b,o,l)
+                    )
+                )(
+                    M0,
+                    M[1],
+                    bfrom[T]
+                )
             );
+            ( V0 = v[li + 1] )[0] = (k + "_");
+
+            V0[ 1 ] = (
+                (
+                    (o,a) => (b,v) => a(b,v,o)
+                )(
+                    M0,
+                    bto[T]
+                )
+            );
+
         };
         return Object.fromEntries(v);
     }

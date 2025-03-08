@@ -1,8 +1,8 @@
 
 export default (
-    [
+    (utf8, utf16) => [
         (b,v,o) => b.writeInt8(v, o),
-        (b,v,o) => b.write(v, o, "utf8"),
+        utf8,
         (b,v,o) => b.writeUInt8((v ? 1: 0), o),
 
         (b,v,o) => b.writeInt16LE(v, o),
@@ -17,6 +17,9 @@ export default (
         (b,v,o) => b.writeFloatLE(v, o),
         (b,v,o) => b.writeDoubleLE(v, o),
 
-        (b,v,o) => b.write(v, o, "utf16le")
+        utf16,
     ]
+)(
+    (b,v,o) => b.write(v, o, "utf8"),
+    (b,v,o) => b.write(v, o, "utf16le"),
 )

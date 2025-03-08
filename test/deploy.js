@@ -1,7 +1,8 @@
 import {
-    TableDeploy
+    TableDeploy,
+    Type as _
 } from '../src/i.js';
-import {join} from 'path';
+import { join } from 'path';
 
 TableDeploy(
     join(process.cwd(), "test/givtak"),
@@ -12,13 +13,8 @@ TableDeploy(
         _.float32,
     ],
     [
-        _.uint8,
+        20,
         0,
         0
     ],
-    [
-        20,
-        0,
-        0,
-    ]
 );

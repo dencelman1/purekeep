@@ -16,6 +16,8 @@
 
 [ bl ]:
 
+- problem with Date.now() about 2038;
+
 - create_many with less amount of file system calls (assemble all changes in one and make on file system call);
 - has and isin for float and integer without conversion to string;
 

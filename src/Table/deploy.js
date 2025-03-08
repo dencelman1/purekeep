@@ -1,13 +1,15 @@
-import {mkdirSync, rmSync, existsSync, writeFileSync} from 'fs';
-import {execSync} from 'child_process';
+import { mkdirSync, rmSync, existsSync, writeFileSync } from 'fs';
+import {totalmem} from 'os';
+
 import {join} from 'path';
+
+import {execSync} from 'child_process';
 
 import offset from './f/offset/i.js';
 
-import Field from '../Field/i.js';
-import ShardArray from '../Field/ShardArray.js';
-
 import isstr from './f/is/str.js';
+import shards from './shards.js';
+import ShardArray from '../ShardArray.js';
 
 
 export default (
@@ -17,202 +19,129 @@ export default (
 
         types,
         rules,
-        arraysize,
     ) => {
         var
-            o = { encoding: 'utf8' },
             fo = {
                 recursive: true,
                 force: true
             },
 
-            arrayO = {length:0},
-            
-            intl = (c) => parseInt(execSync(c, o).trim()),
-
-            inodes = parseInt(execSync(`df -i ${lc}`).toString().split("\n")[1].split(/\s+/)[3], 10),
-
-            fstype = execSync(`df -T ${lc}`).toString().split("\n")[1].split(/\s+/)[1],
-
             mx = Number.MAX_SAFE_INTEGER,
-            floor = Math.floor,
 
-            max_file_amount_map = {
-                ext4: 4_000_000_000,
-                xfs: mx,
-                btrfs: mx,
-                fat32: 65536
+            arch = Number(execSync("getconf LONG_BIT").toString().trim()),
+
+            ram = totalmem(),
+
+            architecture_map = {
+                64: 2 ** 31 - 1,
+                32: 2 ** 30 - 1
             },
 
-            MAX_FILES_IN_DIR = Math.min(max_file_amount_map[fstype], inodes),
-            MAX_FOLDERS_IN_DIR = inodes,
-
-            MAX_FOLDERS_IN_DIR_LENGTH = (
-                MAX_FOLDERS_IN_DIR
-                .toString()
-                .length
+            SERVICE_BYTES = (
+                1 // for defining of defined entries
             ),
 
-            FILE_DESCRIPTORS_AMOUNT = 0,
-
-            MAX_ARRAY_LENGTH = 4_294_967_295,
-
-            EMPTY_ARRAY = [],
-
-            MAX_FILE_PATH_LENGTH = (
-                intl(`getconf PATH_MAX ${lc}`)
-                - (
-                    lc.length
-                    + 7 // "/e/0/v/"
-                    + (
-                        MAX_FOLDERS_IN_DIR_LENGTH
-                        + (
-                            MAX_FILES_IN_DIR
-                            .toString()
-                            .length
-                        )
-                        + 1
-                    )
+            EL = (
+                rules
+                .reduce(
+                    (r, R, i, a) => {
+                        var I = 0;
+                        return (
+                            r
+                            + (
+                                a[i] = (
+                                    isstr(I = types[i])
+                                    ? R
+                                    : offset[I]()
+                                )
+                            )
+                        );
+                    },
+                    SERVICE_BYTES
                 )
             ),
 
+            m = [],
+
+            MAX_EL = architecture_map[arch],
+
             CONST = {
+                MAX_EL,
+                SERVICE_BYTES,
+
                 conftime: 200,
-
+                
                 mx,
-                
-                t: types,
                 f: types.length,
+                t: types,
                 r: rules,
-                s: arraysize,
 
-                MAX_ARRAY_LENGTH,
-                
-                MAX_FILES_IN_DIR,
-                MAX_FOLDERS_IN_DIR,
-
-                FILE_DESCRIPTORS_AMOUNT: (
-                    FILE_DESCRIPTORS_AMOUNT = (
-                        Number.isSafeInteger(
-                            FILE_DESCRIPTORS_AMOUNT =
-                                intl("cat /proc/sys/fs/file-max")
-                        )
-                        ? FILE_DESCRIPTORS_AMOUNT
-                        : mx
-                    )
+                m: (
+                    rules.reduce(
+                        (r, v) => {
+                            var a = r + v;
+                            return (
+                                m.push([ r, a ]),
+                                a
+                            );
+                        },
+                        SERVICE_BYTES
+                    ),
+                    m
                 ),
 
-                MAX_DEPTH: 0,
+                EL,
             },
 
-            R = 0,
+            h = shards(mx,8,ShardArray),
 
-            sa_str = (
-                () => [
-                    shards(mx, R),
-                    shards(mx, 4),
-                    EMPTY_ARRAY
-                ]
-            ),
+            DYNAMIC_DATA = {
+                filled: false,
 
-            sa_fixed = (
-                () => [
-                    shards(mx, R)
-                ]
-            ),
+                L: 0,
+                sh: shards(mx,EL,ShardArray),
+                c: 0,
 
-
-            shfrom = (
-                (r,i) => {
-                    var s = isstr(v);
-                    return (
-                        ( arrayO.length = s ? 3: 1 ),
-
-                        ( R = r ),
-
-                        new Field(
-                            Array.from(
-                                arrayO,
-                                ( s ? sa_str : sa_fixed )
-                            )
-                        )
-                    );
-                }
-            ),
-            shards = (mx, length) => {
-                var
-                    eachClear = mx / length,
-                    each = Math.floor(eachClear),
-                    afterDot = 0.0,
-                    A = Array.from({length}, () => ShardArray(each))
-                ;
-                ((afterDot = eachClear - each)>0.0)
-                &&
-                A.push(ShardArray(Math.ceil(afterDot*length)));
-                return A;
+                h,
+                hc: 0,
+                hL: 0,
             }
         ;
 
-        
-        
-        rules
-        .reduce(
-            (o, R, i, a) => {
-                var I = 0;
-                return (
-                    (
-                        a[i] = (
-                            isstr(I = types[i])
-                            ? R
-                            : offset[I]()
-                        )
-                    ),
-                    o
-                );
-            },
-            rules
-        );
-        
         return (
-            (
-                MAX_FILE_PATH_LENGTH <= 0
-            )
-            ? console.warn(
-                "Not enough MAX_FILE_PATH_LENGTH in your operation system, problem solvings:\n\n"
-                + `1 Change your file system (you have "${fstype}")`
-                + "2 Put database path in top of file system"
-            )
+            (MAX_EL === undefined)
+            ? console.error("you architecture is not 32 or 64")
             :
-            (FILE_DESCRIPTORS_AMOUNT <= 0)
-            ? console.warn("You have not enough file descriptors, solve it")
-            : (
+            (EL > MAX_EL)
+            ? console.error(`your entry length = ${EL} , max = ${MAX_EL} , not enough`)
+            :
+            (EL > ram)
+            ? console.error(`you have not enough RAM, required = ${EL} bytes, you have only ${ ram }`)
+            :
+            (
+                existsSync(lc) && rmSync(lc, fo)
 
-                MAX_FOLDERS_IN_DIR_LENGTH++, // including "/" after folder name
-
-                (
-                    CONST.MAX_DEPTH = Math.ceil( MAX_FILE_PATH_LENGTH / MAX_FOLDERS_IN_DIR_LENGTH )
-                )
-                , console.dir(CONST)
-
-                , existsSync(lc) && rmSync(lc, fo)
                 , mkdirSync(lc, fo)
-                , writeFileSync(join(lc, "c"), JSON.stringify(CONST, null, 2), "utf8")
+                , mkdirSync(join(lc, "e"), fo)
+                , mkdirSync(join(lc, "h"), fo)
+                ,
+                writeFileSync(
+                    join(lc, "c"),
+                    JSON.stringify(CONST, null, 4),
+                    "utf8"
+                )
                 , (
                     writeFileSync(
                         join(lc, "d"),
                         JSON.stringify(
-                            {
-                                filled: false,
-                                L: 0,
-                                sh: Array.from(rules,shfrom),
-                                mx,
-                            },
+                            DYNAMIC_DATA,
                             null,
                             0
                         ),
                         "utf8"
                     )
                 )
+                , console.log("successfull deployed")
             )
         );
     }

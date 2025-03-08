@@ -2,21 +2,31 @@
 
 export default (
     function(
-        Q
+        Q,
+        I
     ) {
+        var
+            f = 0,
+            L = this.L
+            query = this.query
+        ;
         // remove from e;
         // add to hole;
         
         for (;;){
             if (
-                query(IV,QL, OB, Q,QV, CURRENT_E,CURRENT_SV, cond,logic, readString,readNumber, sdopen,sdadd, d,sd,od)
+                query()
             ) {
-
+                break;
             };
         };
-        
-        this.L--;
-        this.confsave();
-        return true;
+
+        return (
+            this.confsave(),
+            this.filled && (f > 0) && this.onreleased(),
+
+            (this.L = L - f),
+            f
+        );
     }
 );

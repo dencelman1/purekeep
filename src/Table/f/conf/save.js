@@ -2,12 +2,12 @@
 export default (
     function() {
         return (
-            clearTimeout(_.confid),
+            clearTimeout(this.confid),
             (
-                _.confid = (
+                this.confid = (
                     setTimeout(
-                        _.confcb,
-                        _.conftime
+                        this.confcb,
+                        this.conftime
                     )
                 )
             )
