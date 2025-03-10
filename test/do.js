@@ -8,6 +8,7 @@ import {
     TypeEntity as te
 } from '../src/i.js';
 import keys from './keys.js';
+import map from './map.js';
 
 
 (
@@ -19,10 +20,11 @@ import keys from './keys.js';
             } = vars,
 
             B = d.entry(),
-            newValueN = "hello_world"
+
+            ID = [ 0 ]
         ;
         return (
-            n_(B, newValueN)
+            n_(B, "hello_world")
             
             , b_(B, true)
             , f_(B, 10.5)
@@ -35,13 +37,26 @@ import keys from './keys.js';
                     (_, i) => {
                         var v = i.toString();
                         return (
-                            // n_(B, v)
-
+                            n_(B, v),
                             d.create(B)
                         );
                     }
                 )
             )
+
+            , console.dir(
+                d.read(
+                    [ B ],
+                    [ d.subarray(B) ],
+                    ID,
+
+                    [ 0, ct["="], 0 ],
+                    [ Buffer.from("1001o_world" + "\x00".repeat(9)) ],
+                )
+            )
+            , console.dir(ID)
+
+            , console.log( d.toJson(B, keys) )
         )
     }
 )(

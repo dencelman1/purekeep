@@ -12,6 +12,7 @@ import shards from './shards.js';
 import ShardArray from '../ShardArray.js';
 
 
+
 export default (
     (
         lc,
@@ -66,6 +67,7 @@ export default (
             MAX_EL = architecture_map[arch],
 
             CONST = {
+                confkeys:null,
                 MAX_EL,
                 SERVICE_BYTES,
 
@@ -95,6 +97,8 @@ export default (
 
             h = shards(mx,8,ShardArray),
 
+            bs = 4096,
+
             DYNAMIC_DATA = {
                 filled: false,
 
@@ -105,9 +109,13 @@ export default (
                 h,
                 hc: 0,
                 hL: 0,
+
+                bs,
+                epb: ( ( bs / EL ) | 0 ),
+                be: []
             }
         ;
-
+        
         return (
             (MAX_EL === undefined)
             ? console.error("you architecture is not 32 or 64")
@@ -119,6 +127,8 @@ export default (
             ? console.error(`you have not enough RAM, required = ${EL} bytes, you have only ${ ram }`)
             :
             (
+                (CONST.confkeys = Object.keys(DYNAMIC_DATA)),
+
                 existsSync(lc) && rmSync(lc, fo)
 
                 , mkdirSync(lc, fo)

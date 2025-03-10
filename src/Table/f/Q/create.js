@@ -32,7 +32,6 @@ export default (
                 (EL = this.EL),
                 (L = this.L),
 
-
                 (d = (
                     ((hL = this.hL) > 0)
                     ? (
@@ -104,7 +103,10 @@ export default (
                     s3
                 ),
                 
+                this.batch_change( ( (this.bs = this.bscalc( this.ds += EL )) / EL ) | 0 ),
+
                 ( this.L = L + 1 ),
+
                 id
             )
         );

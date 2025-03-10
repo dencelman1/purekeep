@@ -2,11 +2,12 @@ import { readSync, writeSync } from 'fs';
 
 
 /*
-    E, // entries (put here)
+    B, // BUFFER (put here)
+    BA, // buffer subarrays (put here through BUFFER);
     I, // ids (put here)
 
     Q, // queries
-    QB, // Query values which uses in queries (Q) conditions
+    QV, // Query values which uses in queries (Q) conditions
     
     [
         0 field_id,
@@ -20,10 +21,36 @@ import { readSync, writeSync } from 'fs';
 
 export default (
     function(
-        E,
+        B,
+        BA,
         I,
+
         Q,
+        QV,
     ) {
+        var f = 0;
+        a: for () {
+
+            readSync(shard_d, cB, 0, EL, cEP);
+
+            if (
+                ( cB[0] === 1 )
+                &&
+                query(cBA,Q,QV,t,QL,0,logic,cond)
+            ) {
+                I[f++] = ei;
+
+                if (f === to_f) {
+                    break a;
+                };
+
+                cB = B[f];
+                cBA = BA[f];
+            };
+
+        };
         
+
+        return f;
     }
 );

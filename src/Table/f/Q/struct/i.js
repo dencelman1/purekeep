@@ -10,3 +10,7 @@ export {default as readString} from './readString.js';
 export {default as readNumber} from './readNumber.js';
 
 export {default as shardhole} from './shardhole.js';
+
+export {default as query} from './query.js';
+
+export {default as subarray} from './subarray.js';

@@ -10,8 +10,13 @@ export default (
             L = this.L
             query = this.query
         ;
-        // remove from e;
-        // add to hole;
+
+        // 0 "released" event;
+
+
+        // [ necesary ]:
+        // 0 add to hole;
+        // 1 set first byte = 0;
         
         for (;;){
             if (

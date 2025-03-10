@@ -37,7 +37,7 @@ function Table(
         _switch(this.h, ( this.hP = join(lc, "h") ), this.hc);
 
     this.hB = Buffer.alloc(8);
-
+    
     this.confid = 0;
     this.confcb = this.conftemplate(this);
 
