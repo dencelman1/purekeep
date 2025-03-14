@@ -11,7 +11,7 @@ import isstr from './f/is/str.js';
 import shards from './shards.js';
 import ShardArray from '../ShardArray.js';
 
-
+import {divideshardbybatch} from "./f/i.js";
 
 export default (
     (
@@ -25,6 +25,10 @@ export default (
             fo = {
                 recursive: true,
                 force: true
+            },
+
+            AO = {
+                length:0,
             },
 
             mx = Number.MAX_SAFE_INTEGER,
@@ -99,11 +103,16 @@ export default (
 
             bs = 4096,
 
+            epb = ( ( bs / EL ) | 0 ),
+
+            sh = shards(mx,EL,ShardArray),
+            el = 0,
+
             DYNAMIC_DATA = {
                 filled: false,
 
                 L: 0,
-                sh: shards(mx,EL,ShardArray),
+                sh,
                 c: 0,
 
                 h,
@@ -111,10 +120,16 @@ export default (
                 hL: 0,
 
                 bs,
-                epb: ( ( bs / EL ) | 0 ),
-                be: []
+                epb,
+                be: [
+                    Math.floor( el / epb ),
+                    epb,
+                    (el % epb)
+                ]
             }
         ;
+
+        console.dir(DYNAMIC_DATA.be);
         
         return (
             (MAX_EL === undefined)

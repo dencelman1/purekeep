@@ -29,7 +29,10 @@ export default (
         QV,
     ) {
         var f = 0;
-        a: for () {
+        a: for (
+            ;
+            ;
+        ) {
 
             readSync(shard_d, cB, 0, EL, cEP);
 

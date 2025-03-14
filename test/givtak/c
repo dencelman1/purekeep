@@ -1,4 +1,16 @@
 {
+    "confkeys": [
+        "filled",
+        "L",
+        "sh",
+        "c",
+        "h",
+        "hc",
+        "hL",
+        "bs",
+        "epb",
+        "be"
+    ],
     "MAX_EL": 2147483647,
     "SERVICE_BYTES": 1,
     "conftime": 200,

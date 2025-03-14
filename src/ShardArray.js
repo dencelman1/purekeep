@@ -1,6 +1,6 @@
 
 // value fd;
-// [ NOT_BUSY ];
+// how many at all;
 
 // capacity;
 // end pointer;
