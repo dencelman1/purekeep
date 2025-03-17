@@ -1,12 +1,12 @@
 
-// value fd;
-// filled bathes;
+// [0] value fd;
+// [1] filled bathes;
 
-// capacity;
-// end pointer;
+// [2] capacity;
+// [3] end pointer;
 
-// from (id) >=;
-// to (id) <=;
+// [4] from (id) >=;
+// [5] to (id) <=;
 
 export default (
     (

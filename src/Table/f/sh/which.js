@@ -1,7 +1,8 @@
 
 
 export default (
-    (sh, id) => {
+    function(sh, id) {
+        
         for (
             var
                 s = null,
@@ -15,6 +16,7 @@ export default (
                 break;
             };
         };
+        
         return s;
     }
 );

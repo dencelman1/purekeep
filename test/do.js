@@ -51,42 +51,10 @@ import keys from './keys.js';
                 )
             )
             
-            , console.log("DELETED: "+d.delete(
-                [0],
-                1,
-
-                [0,ct["="],0],
-                3,
-                [
-                    Buffer.from("0ello_world"+"\x00".repeat(9))
-                ]
-            ))
-            , console.log("DELETED IDS: "+JSON.stringify(ID))
-
-            , n_(B, "I" + "\x00".repeat(19), 0)
-
-            , console.log("CREATED: " + d.create(B))
+            , d.delete_id(0)
+            , d.update_id(1, ED)
             
-            , console.log(
-                "found after update: " +
-                
-                d.read(
-                    B,
-                    [0],
-                    1,
-
-                    [0,ct["="],0],
-                    3,
-                    [
-                        Buffer.from("I" + "\x00".repeat(19))
-                    ]
-                )
-            )
-            , console.log("found after update ids: " + JSON.stringify(ID))
-            
-            , console.log( d.to_debug_json(B, keys) )            
-
-            , console.log((Date.now() - D)/1000)
+            , console.log("created id: " + d.create(B))
         )
     }
 )(

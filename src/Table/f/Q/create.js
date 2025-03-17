@@ -33,6 +33,7 @@ export default (
 
                 ((hL = this.hL) > 0)
                 ? (
+                    
                     (this.hL = --hL),
                     (
                         (s = this.current_h)[2]++
@@ -51,18 +52,23 @@ export default (
                     ),
 
                     readSync(s[0], (hB = this.hB), 0,8,s3),
-
+                    
                     (
                         s3 = (
-                            s = (
-                                this.shwhich(
-                                    this.sh,
-                                    (
-                                        id = Number(hB.readBigUInt64LE(0))
-                                    )
-                                )
+                            (
+                                id - (s = (
+                                    this.sh[
+                                        Math.floor(
+                                            (
+                                                id = Number(hB.readBigUInt64LE(0))
+                                            )
+                                            / this.mx
+                                        )
+                                    ]
+                                ))[4]
                             )
-                        )[3]
+                            * EL
+                        )
                     ),
 
                     (d = s[0])

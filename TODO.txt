@@ -1,26 +1,19 @@
 
-[ now ]:
-
-5 read_by_id;
-6 update_by_id;
-7 delete_by_id;
-
-
 [ bl ]:
 
 - update_many (for specific entry specific value) (profit = 1 loop pass to update multiple records);
 - create_many (create_many with less amount of file system calls (assemble all changes in one and make on file system call));;
-
 - ( read / update / delete )_by_id ( many );
 
+- optimization: boolean values storages in bits;
+
+- mutex;
+- version_check;
 
 - problem with Date.now() about 2038;
-
 - has and isin for float and integer without conversion to string;
 
 - NEW_TYPES () {
     1 utf32;
     2 array that supports digits with (32, 64) bytes;
 };
-
-- version_check;

@@ -49,9 +49,7 @@ function Table(
         _switch(this.h, ( this.hP = join(lc, "h") ), this.hc);
 
     this.hB = Buffer.alloc(8);
-
-    // this.padb = Buffer.alloc(this.bse_s, "\x00", 'utf8');
-
+    
     this.getb = getb;
 
     o.length = D.bse;

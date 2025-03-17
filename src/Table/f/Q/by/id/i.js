@@ -1,3 +1,3 @@
-export {default as deletebyid} from './delete.js';
-export {default as readbyid} from './read.js';
-export {default as updatebyid} from './update.js';
+export {default as delete_id} from './delete.js';
+export {default as read_id} from './read.js';
+export {default as update_id} from './update.js';
