@@ -1,6 +1,6 @@
 
 // value fd;
-// how many at all;
+// filled bathes;
 
 // capacity;
 // end pointer;
@@ -12,11 +12,11 @@ export default (
     (
         c,
         from,
-        to
+        to,
     ) => {
         return [
             0,
-            c,
+            0,
             
             c,
             0,

@@ -11,9 +11,11 @@ TableDeploy(
         _.str8,
         _.bool,
         _.float32,
+        _.int8,
     ],
     [
         20,
+        0,
         0,
         0
     ],

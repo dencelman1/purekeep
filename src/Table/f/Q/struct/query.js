@@ -15,19 +15,35 @@
 
 */
 
+/*
+
+b = subarrays of entry;
+q = query;
+v = query_values;
+t = types;
+l = query.length;
+i = 0;
+a = true/false // init value of result
+qi = 0;
+logic = array of logic operations;
+cond = array of condition operations;
+
+
+*/
+
+
 export default (
-    (b,q,v,t,l,i,logic,cond) => {
-        var
-            a = true
-        ;
+    (b,q,v,t,l,i,a,qi,logic,cond) => {
         for(
-            var qi = 0;
+            ;
             i < l;
             i += 3
         ) {
             if (i > 0 && !(logic[q[ i++ ]](a))) {
                 break
             };
+
+            
             
             a = cond[t[qi = q[i]]][q[i+1]](b[qi], v[q[i+2]]);
         };

@@ -1,24 +1,21 @@
 
 [ now ]:
 
-0 holes and sharding (
-    holes=create,delete,update(with strings);
-    sharding=create,delete,read,update;
-);
+5 read_by_id;
+6 update_by_id;
+7 delete_by_id;
 
-1 create;
-2 read;
-
-3 update;
-4 delete;
-
-4.6 ( read / update / delete )_by_id
 
 [ bl ]:
 
+- update_many (for specific entry specific value) (profit = 1 loop pass to update multiple records);
+- create_many (create_many with less amount of file system calls (assemble all changes in one and make on file system call));;
+
+- ( read / update / delete )_by_id ( many );
+
+
 - problem with Date.now() about 2038;
 
-- create_many with less amount of file system calls (assemble all changes in one and make on file system call);
 - has and isin for float and integer without conversion to string;
 
 - NEW_TYPES () {

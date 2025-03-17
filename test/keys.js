@@ -2,5 +2,6 @@
 export default [
     'n',
     'b',
-    'f'
+    'f',
+    "i"
 ]

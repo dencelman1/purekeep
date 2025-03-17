@@ -5,13 +5,18 @@ import {join} from 'path';
 
 import {execSync} from 'child_process';
 
-import offset from './f/offset/i.js';
+import offset from '../f/offset/i.js';
 
-import isstr from './f/is/str.js';
-import shards from './shards.js';
-import ShardArray from '../ShardArray.js';
+import isstr from '../f/is/str.js';
+import shards from '../shards.js';
+import ShardArray from '../../ShardArray.js';
 
-import {divideshardbybatch} from "./f/i.js";
+import ceil from './ceil.js';
+import truncChange from './truncChange.js';
+import fo from './fo.js';
+import architecture_map from './architecture_map.js';
+import holes from './holes.js';
+
 
 export default (
     (
@@ -22,30 +27,12 @@ export default (
         rules,
     ) => {
         var
-            fo = {
-                recursive: true,
-                force: true
-            },
-
-            AO = {
-                length:0,
-            },
-
-            mx = Number.MAX_SAFE_INTEGER,
-
-            arch = Number(execSync("getconf LONG_BIT").toString().trim()),
-
-            ram = totalmem(),
-
-            architecture_map = {
-                64: 2 ** 31 - 1,
-                32: 2 ** 30 - 1
-            },
+            MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER,
 
             SERVICE_BYTES = (
                 1 // for defining of defined entries
             ),
-
+            
             EL = (
                 rules
                 .reduce(
@@ -66,18 +53,47 @@ export default (
                 )
             ),
 
+            fl = Math.floor,
+            
+            bs_value = ceil( EL, 4096 ),
+
+            bse = fl( bs_value / EL ), // entries in batch [ CONST ]
+            she = fl( MAX_SAFE_INTEGER / EL ), // entries in shard
+
+            sh_bs = fl( she / bse ), // batches in shard [ CONST ]
+
+            mx = (
+                (
+                    she = (
+                        sh_bs * bse
+                    )
+                )
+                * EL
+            ),
+
+            bse_s = ( bse * EL ), // bytes batch
+
+            ram = totalmem(),
+
             m = [],
 
-            MAX_EL = architecture_map[arch],
+            MAX_EL = architecture_map[
+                Number(execSync("getconf LONG_BIT").toString().trim())
+            ],
 
             CONST = {
                 confkeys:null,
                 MAX_EL,
                 SERVICE_BYTES,
 
+                MAX_SAFE_INTEGER,
+                HOLE_SIZE: 8,
+
                 conftime: 200,
                 
                 mx,
+                mx_h: Math.floor(mx / 8),
+                
                 f: types.length,
                 t: types,
                 r: rules,
@@ -99,37 +115,31 @@ export default (
                 EL,
             },
 
-            h = shards(mx,8,ShardArray),
-
-            bs = 4096,
-
-            epb = ( ( bs / EL ) | 0 ),
-
-            sh = shards(mx,EL,ShardArray),
-            el = 0,
-
             DYNAMIC_DATA = {
                 filled: false,
 
                 L: 0,
-                sh,
                 c: 0,
+                bse_next: 1,
 
-                h,
                 hc: 0,
                 hL: 0,
 
-                bs,
-                epb,
-                be: [
-                    Math.floor( el / epb ),
-                    epb,
-                    (el % epb)
-                ]
-            }
-        ;
+                bse,
+                bse_s,
 
-        console.dir(DYNAMIC_DATA.be);
+                she,
+
+                h: holes( mx, ShardArray ),
+
+                sh: shards( ShardArray, she, EL),
+
+                sh_bs,
+                bs_value
+            },
+
+            ePath = join(lc, "e")
+        ;
         
         return (
             (MAX_EL === undefined)
@@ -147,7 +157,10 @@ export default (
                 existsSync(lc) && rmSync(lc, fo)
 
                 , mkdirSync(lc, fo)
-                , mkdirSync(join(lc, "e"), fo)
+                , mkdirSync(ePath, fo)
+
+                // , writeFileSync(join(ePath, "0"), em_bf, "utf8")
+
                 , mkdirSync(join(lc, "h"), fo)
                 ,
                 writeFileSync(
@@ -155,16 +168,15 @@ export default (
                     JSON.stringify(CONST, null, 4),
                     "utf8"
                 )
-                , (
-                    writeFileSync(
-                        join(lc, "d"),
-                        JSON.stringify(
-                            DYNAMIC_DATA,
-                            null,
-                            0
-                        ),
-                        "utf8"
-                    )
+                ,
+                writeFileSync(
+                    join(lc, "d"),
+                    JSON.stringify(
+                        DYNAMIC_DATA,
+                        null,
+                        0
+                    ),
+                    "utf8"
                 )
                 , console.log("successfull deployed")
             )

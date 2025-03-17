@@ -11,10 +11,9 @@ export default (
             v = (
                 (o.length = kl),
                 Array.from(o, this.ENTRY)
-            )
+            ),
+            EL = this.EL
         ;
-
-        [["", null]]
         for (
             var
                 bfrom = this.bfrom,
@@ -44,23 +43,25 @@ export default (
 
             V0[1] = (
                 (
-                    (o,l,a) => (
-                        (b) => a(b,o,l)
+                    (o,l,a,EL) => (
+                        (b, i) => a(b,(o+(EL*i)),l)
                     )
                 )(
                     M0,
                     M[1],
-                    bfrom[T]
+                    bfrom[T],
+                    EL
                 )
             );
             ( V0 = v[li + 1] )[0] = (k + "_");
 
             V0[ 1 ] = (
                 (
-                    (o,a) => (b,v) => a(b,v,o)
+                    (o,a,EL) => (b,v,i) => a(b,v,(o+(EL*i)))
                 )(
                     M0,
-                    bto[T]
+                    bto[T],
+                    EL
                 )
             );
 

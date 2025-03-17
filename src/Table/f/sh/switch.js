@@ -1,4 +1,4 @@
-import {openSync, existsSync, mkdirSync} from 'fs';
+import {openSync} from 'fs';
 
 
 export default (
@@ -7,7 +7,7 @@ export default (
             v = sh[c]
         ;
         return (
-            ( v[0] = openSync((p + "/" + c.toString()), "a+") ),
+            ( v[0] = openSync((p + "/" + c.toString()), "w+") ),
             
             v
         );
