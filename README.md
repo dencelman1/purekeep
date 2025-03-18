@@ -376,7 +376,8 @@ table.onreleased = (
 
 # Performance:
 
-(create/read/update/delete) request for **1** entry takes **1-10** milliseconds based on your hardware, recording size, etc.
+- database request for **1** entry takes **1-10** milliseconds based on your hardware, recording size, etc.
+
 
 
 > ( productivity, efficiency and performance of a program ) > ( convenience for the developer );
