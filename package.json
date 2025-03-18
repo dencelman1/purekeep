@@ -1,8 +1,8 @@
 {
   "name": "purekeep",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
-  "description": "Pure persistent binary JavaScript database",
+  "description": "Pure persistent binary NodeJS JavaScript database",
   "main": "src/i.js",
   "type": "module",
   "scripts": {
