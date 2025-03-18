@@ -12,6 +12,58 @@ npm i purekeep
 ```
 
 
+# Data types, etc:
+
+```js
+
+import {
+    LogicType as l,
+    CompareType as c,
+    Type
+} from "purekeep"
+
+var {
+
+    int8,
+    str8,
+    bool,
+
+    int16,
+    int32,
+    int64,
+
+    uint8,
+    uint16,
+    uint32,
+    uint64,
+
+    float32,
+    float64,
+    
+    str16le,
+
+} = Type;
+
+
+// for queries:
+
+l["||"]; // or
+l["&&"]; // and
+
+c[ "=" ]; // equal;
+c[ ">" ]; // greater than;
+c[ "<" ]; // less than;
+c[ ">=" ]; // greater than or equal;
+c[ "<=" ]; // less than or equal;
+
+// mainly for string ( but for int, float, bool - its equal ( c['='] ) ):
+
+c.has; // example: "1234" contains "23";
+c.in; // example: "23" contained in "1234";
+
+```
+
+
 # Step 2: table deploy
 
 ```js

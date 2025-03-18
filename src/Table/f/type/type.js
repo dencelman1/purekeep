@@ -14,7 +14,7 @@ export default {
     uint32: 8,
     uint64: 9,
 
-    float32: 10, // -3.141592653589793 - 3.141592653589793
+    float32: 10,
     float64: 11,
     
     str16le: 12,
