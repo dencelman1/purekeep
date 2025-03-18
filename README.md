@@ -12,7 +12,7 @@ npm i purekeep
 ```
 
 
-# Data types, etc:
+# Data types, logical and comparative operators:
 
 ```js
 
