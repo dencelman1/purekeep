@@ -24,7 +24,7 @@ export default (
             (
                 this.filled ||= ( this.mx === L )
             )
-            ? this.onfilled(E)
+            ? this.onfilled(E,0)
             : (
                 this.confsave(),
 

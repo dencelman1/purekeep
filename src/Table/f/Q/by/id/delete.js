@@ -32,10 +32,12 @@ export default (
 
             (current_h[3] += 8),
             (this.hL++),
+
+            (this.L--),
             
             writeSync(sh[0], this.eb, 0, 1, ((id - sh[4]) * EL)),
-            
-            true
+
+            1
         );
     }
 );
