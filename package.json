@@ -1,12 +1,13 @@
 {
   "name": "purekeep",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "private": false,
   "description": "Pure persistent binary JavaScript database",
   "main": "src/i.js",
   "type": "module",
   "scripts": {
     
   },
-  "author": "",
-  "license": "ISC"
+  "author": "dencelman1",
+  "license": "MIT"
 }

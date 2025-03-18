@@ -80,7 +80,7 @@ var
         name_, // function for editing value of "name" field in bytes buffer
         name, // function for reading value of "name" field from bytes buffer
 
-    } = function,
+    } = functions,
 
     EL = table.EL, // byte length of entry
     r = table.r, // byte length of each entry field
@@ -89,6 +89,8 @@ var
     ED = table.entry(1),
     ID = [ 0 ] // IDs array
 ;
+
+// function for editing "name" field: name_
 
 name_(
     ED, // which buffer i need to edit
