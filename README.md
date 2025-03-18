@@ -304,7 +304,7 @@ table.read_id(id, B); // B - buffer where you ll get entry data
 
 name_(B, "new_value"+"\x00".repeat(11), 0);
 
-table.update_id( B, id ); // update with new name ( "new_value\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" ):
+table.update_id( id, B ); // update with new name ( "new_value\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" ):
 table.delete_id( id );
 
 ```
