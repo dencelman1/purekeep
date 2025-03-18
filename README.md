@@ -290,8 +290,22 @@ console.log(
 
 
 ```js
+var
+    B = table.entry(1),
 
+    {name_} = functions,
 
+    id = 10
+;
+
+// all these 3 methods returns: 1 - (found / updated / deleted), 0 - not found;
+
+table.read_id(id, B); // B - buffer where you ll get entry data
+
+name_(B, "new_value"+"\x00".repeat(11), 0);
+
+table.update_id( B, id ); // update with new name ( "new_value\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" ):
+table.delete_id( id );
 
 ```
 
