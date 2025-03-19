@@ -12,5 +12,6 @@ export default (
 
         inthas,
         intin,
+        neq,
     ]
 )

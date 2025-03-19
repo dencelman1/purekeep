@@ -1,4 +1,4 @@
-import {gt, le, eq, gteq, leeq, floathas, floatin} from './operation/i.js';
+import {neq, gt, le, eq, gteq, leeq, floathas, floatin} from './operation/i.js';
 
 export default (
     [
@@ -11,5 +11,6 @@ export default (
 
         floathas,
         floatin,
+        neq
     ]
 );

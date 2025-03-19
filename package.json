@@ -5,9 +5,6 @@
   "description": "Pure persistent binary NodeJS JavaScript database",
   "main": "src/i.js",
   "type": "module",
-  "scripts": {
-    
-  },
   "author": "dencelman1",
   "license": "MIT"
 }

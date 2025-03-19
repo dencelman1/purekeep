@@ -11,4 +11,6 @@ export default {
     
     "has": 5,
     "in": 6,
+
+    '!=': 7,
 };
