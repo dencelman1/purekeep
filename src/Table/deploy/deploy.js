@@ -132,7 +132,7 @@ export default (
 
                 h: holes( mx, ShardArray ),
 
-                sh: shards( ShardArray, she, EL),
+                sh: shards( ShardArray, she, EL ),
 
                 sh_bs,
                 bs_value

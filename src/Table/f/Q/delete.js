@@ -4,7 +4,9 @@ import {writeSync, readSync} from 'fs';
 export default (
     function(
         I,
-        limit,
+
+        o,
+        l,
 
         Q,
         QL,
@@ -86,6 +88,8 @@ export default (
                         ( getb[pr_of] === 1 )
                         &&
                         query(getsb[pri],Q,QV,t,QL,0,true,0,logic,cond)
+                        &&
+                        (o || ((o--), false))
                     ) {
                         hB.writeBigUInt64LE(BigInt(I[f] = ei), 0);
                         writeSync(current_h[0], hB, 0,8,current_h[3]);
@@ -106,7 +110,7 @@ export default (
 
                         writeSync(shard_d,eb, 0,1, (P + ( EL * pri )));
                         
-                        if ( (++f) === limit ) {
+                        if ( (++f) === l ) {
                             break a;
                         };
                     };
@@ -127,7 +131,7 @@ export default (
             (this.filled && (f > 0))
             ? (
                 (this.filled = false),
-                this.onreleased(I,f,limit, Q,QL,QV)
+                this.onreleased(I,f,l, Q,QL,QV)
             )
             : f
         );

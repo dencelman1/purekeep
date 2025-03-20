@@ -3,9 +3,7 @@
 
 - added !=;
 - tb.entry(l, 4);
-
-- query from end or from start;
-- offset (with limit) for (from end and from start);
+- offset (with limit);
 
 [ bl ]:
 

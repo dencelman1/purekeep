@@ -26,7 +26,16 @@ function Table(
         
         I = 0,
 
-        getfrom = (v) => getb.subarray((I + v[0]), (I + v[1]))
+        getfrom = (v) => getb.subarray((I + v[0]), (I + v[1])),
+
+        sh = D.sh,
+
+        reverse = (r,v,i) => (
+            (
+                r[r.length - 1 - i] = v
+            ),
+            r
+        )
     ;
 
     // from const:
@@ -43,10 +52,12 @@ function Table(
     this.dP = join((this.lc = lc), "d");
 
     this.s =
-        _switch(this.sh, ( this.eP = join(lc, "e") ), this.c);
+        _switch(sh, ( this.eP = join(lc, "e") ), this.c);
 
     this.current_h =
         _switch(this.h, ( this.hP = join(lc, "h") ), this.hc);
+
+    this.rsh = Array.from(sh).reduce( reverse, sh );
 
     this.hB = Buffer.alloc(8);
     

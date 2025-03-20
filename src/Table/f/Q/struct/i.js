@@ -14,3 +14,5 @@ export {default as shardhole} from './shardhole.js';
 export {default as query} from './query.js';
 
 export {default as subarray} from './subarray.js';
+
+export {default as from_start} from './from_start.js';

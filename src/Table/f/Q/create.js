@@ -19,7 +19,6 @@ export default (
             
             hL = 0
         ;
-
         return (
             (
                 this.filled ||= ( this.mx === L )

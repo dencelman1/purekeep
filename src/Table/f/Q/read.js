@@ -22,7 +22,9 @@ export default (
     function(
         B,
         I,
-        limit,
+
+        o,
+        l,
 
         Q,
         QL,
@@ -92,11 +94,13 @@ export default (
                         ( getb[pr_of] === 1 )
                         &&
                         query(entry,Q,QV,t,QL,0,true,0,logic,cond)
+                        &&
+                        (o || ((o--), false))
                     ) {
                         I[f] = ei;
                         getb.copy(B, (f * EL), pr_of, (pr_of += EL));
     
-                        if ((++f) === limit) {
+                        if ((++f) === l) {
                             break a;
                         };
                     }

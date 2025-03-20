@@ -3,9 +3,9 @@
 export default (
     function(e, u) {
         var
-            EL = this.EL + u,
+            EL = this.EL,
             sm = (EL * e),
-            b = Buffer.alloc(sm, "\x00", "utf8")
+            b = Buffer.alloc((sm + u), "\x00", "utf8")
         ;
         for (
             var i = 0;
