@@ -11,5 +11,7 @@ export {default as isin} from './isin.js';
 
 export {default as comp} from './comp.js';
 
+export {default as neq} from './neq.js';
+
 export * from './int/i.js';
 export * from './float/i.js';

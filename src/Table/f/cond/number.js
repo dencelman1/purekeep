@@ -1,4 +1,4 @@
-import {gt, le, eq, gteq, leeq, inthas, intin} from './operation/i.js';
+import {neq, gt, le, eq, gteq, leeq, inthas, intin} from './operation/i.js';
 
 
 export default (
