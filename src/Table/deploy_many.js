@@ -2,18 +2,23 @@ import TableDeploy from './deploy/deploy.js';
 
 
 export default (
-    (rd,TableDeploy) => (
-        (tables) => (
-            tables.reduce(
-                rd,
-                TableDeploy
-            )
-        )
-    )
-)(
-    (td,a) => (
-        td(a.p, a.mx, a.t, a.r),
-        td
-    ),
-    TableDeploy
+    (tables,pathes) => {
+        for (
+            var
+                v = null,
+                i = 0,
+                l = tables.length
+            ;
+            i < l;
+            i++
+        ) {
+            TableDeploy(
+                pathes[i],
+                (v = tables[i]).mx,
+                v.t,
+                v.r
+            );
+        };
+        return undefined;
+    }
 );

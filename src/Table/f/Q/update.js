@@ -1,4 +1,4 @@
-import { writeSync, readSync } from 'fs';
+import { writeSync, readSync, fsyncSync } from 'fs';
 
 
 export default (
@@ -84,7 +84,7 @@ export default (
                         &&
                         query(getsb[pri],Q,QV,t,QL,0,true,0,logic,cond)
                         &&
-                        (o || ((o--), false))
+                        (o ? ((o--), false): true)
                     ) {
                         for (
                                 ( I[f] = ei ),
@@ -111,6 +111,7 @@ export default (
                                 EL,
                                 (P + el_pri)
                             ),
+                            fsyncSync(shard_d),
                             (wi = 0),
 
                             ( (++f) === l )

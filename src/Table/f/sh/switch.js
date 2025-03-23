@@ -1,13 +1,15 @@
-import {openSync} from 'fs';
+import {openSync, existsSync,writeFileSync} from 'fs';
 
 
 export default (
     (sh, p, c) => {
         var
-            v = sh[c]
+            v = sh[c],
+            P = (p + "/" + c.toString())
         ;
         return (
-            ( v[0] = openSync((p + "/" + c.toString()), "w+") ),
+            existsSync(P) || writeFileSync(P, ""),
+            ( v[0] = openSync(P, "r+") ),
             
             v
         );

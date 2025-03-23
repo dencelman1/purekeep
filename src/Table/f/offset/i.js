@@ -18,4 +18,4 @@ export default ((utf8, utf16, o, t, f, e) => [
     () => 2,
     () => 4,
     () => 8,
-)
+);

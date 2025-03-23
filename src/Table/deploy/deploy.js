@@ -12,23 +12,23 @@ import shards from '../shards.js';
 import ShardArray from '../../ShardArray.js';
 
 import ceil from './ceil.js';
-import truncChange from './truncChange.js';
 import fo from './fo.js';
 import architecture_map from './architecture_map.js';
 import holes from './holes.js';
-
+import max_length from '../../max_length.js';
 
 export default (
     (
         lc,
-        mx,
 
+        mx,
+        
         types,
         rules,
     ) => {
         var
-            MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER,
-
+            mx = Math.min(mx, max_length),
+            
             SERVICE_BYTES = (
                 1 // for defining of defined entries
             ),
@@ -58,7 +58,7 @@ export default (
             bs_value = ceil( EL, 4096 ),
 
             bse = fl( bs_value / EL ), // entries in batch [ CONST ]
-            she = fl( MAX_SAFE_INTEGER / EL ), // entries in shard
+            she = fl( mx / EL ), // entries in shard
 
             sh_bs = fl( she / bse ), // batches in shard [ CONST ]
 
@@ -86,13 +86,12 @@ export default (
                 MAX_EL,
                 SERVICE_BYTES,
 
-                MAX_SAFE_INTEGER,
-                HOLE_SIZE: 8,
+                HOLE_SIZE: 4,
 
                 conftime: 200,
                 
                 mx,
-                mx_h: Math.floor(mx / 8),
+                mx_h: Math.floor(mx / 4),
                 
                 f: types.length,
                 t: types,
@@ -113,6 +112,12 @@ export default (
                 ),
 
                 EL,
+                
+                bs_value,
+                sh_bs,
+                she,
+                bse_s,
+                bse,
             },
 
             DYNAMIC_DATA = {
@@ -125,17 +130,8 @@ export default (
                 hc: 0,
                 hL: 0,
 
-                bse,
-                bse_s,
-
-                she,
-
                 h: holes( mx, ShardArray ),
-
                 sh: shards( ShardArray, she, EL ),
-
-                sh_bs,
-                bs_value
             },
 
             ePath = join(lc, "e")

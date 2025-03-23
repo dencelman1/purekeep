@@ -1,4 +1,4 @@
-import {writeSync, readSync} from 'fs';
+import {writeSync, readSync, fsyncSync} from 'fs';
 
 
 export default (
@@ -16,9 +16,6 @@ export default (
             f = 0
         ;
         
-        
-        
-
         a: for (
             var
                 ei = 0,
@@ -57,10 +54,9 @@ export default (
                 P = 0,
                 
                 pr_of = 0,
+                current_h_0 = 0,
 
                 hP = this.hP
-
-
             ;
             shi < EL;
             (shi++), (bi = P = 0)
@@ -89,10 +85,12 @@ export default (
                         &&
                         query(getsb[pri],Q,QV,t,QL,0,true,0,logic,cond)
                         &&
-                        (o || ((o--), false))
+                        (o ? ((o--), false): true)
                     ) {
-                        hB.writeBigUInt64LE(BigInt(I[f] = ei), 0);
-                        writeSync(current_h[0], hB, 0,8,current_h[3]);
+                        hB.writeUInt32LE((I[f] = ei), 0);
+
+                        writeSync((current_h_0 = current_h[0]), hB, 0,4,current_h[3]);
+                        fsyncSync(current_h_0);
 
                         ( --current_h[2] )
                         || (
@@ -105,10 +103,11 @@ export default (
                                 )
                             )
                         );
-                        current_h[3] += 8;
+                        current_h[3] += 4;
                         this.hL++;
 
                         writeSync(shard_d,eb, 0,1, (P + ( EL * pri )));
+                        fsyncSync(shard_d);
                         
                         if ( (++f) === l ) {
                             break a;

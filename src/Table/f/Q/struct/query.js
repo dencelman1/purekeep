@@ -42,8 +42,6 @@ export default (
             if (i > 0 && !(logic[q[ i++ ]](a))) {
                 break
             };
-
-            
             
             a = cond[t[qi = q[i]]][q[i+1]](b[qi], v[q[i+2]]);
         };

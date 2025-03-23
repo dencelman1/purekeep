@@ -1,4 +1,4 @@
-import {writeSync} from 'fs';
+import {writeSync, fsyncSync} from 'fs';
 
 
 export default (
@@ -9,14 +9,18 @@ export default (
             sh = this.sh[Math.floor(id / this.mx )],
             EL = this.EL,
             current_h = this.current_h,
-            hB = this.hB
+            hB = this.hB,
+            current_h_0 = current_h[0],
+            sh0 = sh[0]
         ;
 
         return (
             this.confsave(),
 
-            hB.writeBigUInt64LE(BigInt(id), 0),
-            writeSync(current_h[0], hB, 0,8,current_h[3]),
+            hB.writeUInt32LE((id), 0),
+            
+            writeSync(current_h_0, hB, 0,4,current_h[3]),
+            fsyncSync(current_h_0),
 
             ( --current_h[2] )
             || (
@@ -30,12 +34,13 @@ export default (
                 )
             ),
 
-            (current_h[3] += 8),
+            (current_h[3] += 4),
             (this.hL++),
 
             (this.L--),
             
-            writeSync(sh[0], this.eb, 0, 1, ((id - sh[4]) * EL)),
+            writeSync(sh0, this.eb, 0, 1, ((id - sh[4]) * EL)),
+            fsyncSync(sh0),
 
             1
         );

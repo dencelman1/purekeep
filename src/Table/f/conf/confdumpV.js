@@ -14,7 +14,7 @@ export default (
             i < l;
             i++
         ) {
-            v+=`"${K = k[i]}":${t[K]}`
+            v+=`"${K = k[i]}":${JSON.stringify(t[K])},`
         };
 
 

@@ -365,31 +365,10 @@ table.delete_id( id );
 # Limits:
 
 Maximum size of table = (
-    Number.MAX_SAFE_INTEGER (≈9007199254740991)
-    *
-    entries_length (
-        in this case = 26 bytes;
-
-        is_vip ( boolean ) = 1;
-        name ( fixed length ) = 20;
-        float_value ( float32 ) = 4;
-        my_integer_value (int8) = 1;
-
-        SERVICE_BYTES = 1;
-    )
+    <= ( max of uint32 = 4_294_967_295 bytes ≈ 4 GB )
 );
 
-In this case you have max size of your table:
-
-≈ 234187180623265766 bytes
-≈ 218161519.3 GB 
-≈ 213668.48 TB
-≈ 207.99 PB
-
-
 If you need more you can create handler function for next events:
-
-
 
 ```js
 
@@ -429,7 +408,6 @@ table.onreleased = (
 # Performance:
 
 - database request for **1** entry takes **1-10** milliseconds based on your hardware, recording size, etc.
-
 
 
 > ( productivity, efficiency and performance of a program ) > ( convenience for the developer );

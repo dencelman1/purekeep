@@ -4,8 +4,8 @@ export default (
     (mx, ShardArray) => {
         var
             id = 0,
-            eachchange = (mx % 8),
-            each = Math.floor(mx / 8),
+            eachchange = (mx % 4),
+            each = Math.floor(mx / 4),
 
             A = []
         ;

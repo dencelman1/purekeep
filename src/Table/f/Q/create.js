@@ -1,4 +1,4 @@
-import { writeSync, readSync } from "fs";
+import { writeSync, readSync, fsyncSync } from "fs";
 
 
 export default (
@@ -17,11 +17,12 @@ export default (
             s3 = 0,
             d = 0,
             
-            hL = 0
+            hL = 0,
+            mx = this.mx
         ;
         return (
             (
-                this.filled ||= ( this.mx === L )
+                this.filled ||= ( mx === L )
             )
             ? this.onfilled(E,0)
             : (
@@ -38,7 +39,7 @@ export default (
                         (s = this.current_h)[2]++
                     ),
 
-                    (s3 = (s[3] -= 8))
+                    (s3 = (s[3] -= 4))
                     || (
                         hL && (
                             
@@ -50,7 +51,7 @@ export default (
                         )
                     ),
 
-                    readSync(s[0], (hB = this.hB), 0,8,s3),
+                    readSync(s[0], (hB = this.hB), 0,4,s3),
                     
                     (
                         s3 = (
@@ -59,9 +60,9 @@ export default (
                                     this.sh[
                                         Math.floor(
                                             (
-                                                id = Number(hB.readBigUInt64LE(0))
+                                                id = hB.readUInt32LE(0)
                                             )
-                                            / this.mx
+                                            / mx
                                         )
                                     ]
                                 ))[4]
@@ -110,6 +111,7 @@ export default (
                     EL,
                     s3
                 ),
+                fsyncSync(d),
 
                 ( this.L = L + 1 ),
 

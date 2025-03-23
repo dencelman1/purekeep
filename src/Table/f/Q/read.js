@@ -95,7 +95,7 @@ export default (
                         &&
                         query(entry,Q,QV,t,QL,0,true,0,logic,cond)
                         &&
-                        (o || ((o--), false))
+                        (o ? ((o--), false): true)
                     ) {
                         I[f] = ei;
                         getb.copy(B, (f * EL), pr_of, (pr_of += EL));

@@ -22,7 +22,7 @@ function Table(
         _switch = this.shswitch,
         o = this.arrayFromO,
 
-        getb = Buffer.alloc(D.bse_s, "\x00", "utf8"),
+        getb = Buffer.alloc(CONST.bse_s, "\x00", "utf8"),
         
         I = 0,
 
@@ -63,7 +63,18 @@ function Table(
     
     this.getb = getb;
 
-    o.length = D.bse;
+    o.length = CONST.bse;
+
+    this.JSON = {
+        L: 0,
+        m: this.m,
+        t: this.t,
+        r: this.r,
+        EL: this.EL,
+
+        CompareType: this.CompareType,
+        LogicType: this.LogicType,
+    };
     
     this.getsb = (
         Array.from(

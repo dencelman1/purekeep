@@ -2,7 +2,17 @@ import Table from './i.js';
 
 
 export default (
-    (a) => (tables) => Array.from(tables, a)
-)(
-    (v) => new Table(v.p)
+    (tables, pathes) => (
+        Array.from(
+            tables,
+            (n, i) => {
+                return (
+                    {
+                        v: new Table( pathes[ i ] ),
+                        n
+                    }
+                );
+            }
+        )
+    )
 );
