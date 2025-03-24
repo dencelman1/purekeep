@@ -111,7 +111,7 @@ export default (
                                 EL,
                                 (P + el_pri)
                             ),
-                            fsyncSync(shard_d),
+                            
                             (wi = 0),
 
                             ( (++f) === l )
@@ -126,6 +126,9 @@ export default (
 
             };
         };
+
+        this.dump ||= f > 0;
+        
         return f;
     }
 );

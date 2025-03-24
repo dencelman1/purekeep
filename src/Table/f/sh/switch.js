@@ -9,7 +9,7 @@ export default (
         ;
         return (
             existsSync(P) || writeFileSync(P, ""),
-            ( v[0] = openSync(P, "r+") ),
+            (v[0] = openSync(P, "r+")),
             
             v
         );

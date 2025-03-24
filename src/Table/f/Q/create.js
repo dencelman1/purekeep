@@ -26,8 +26,6 @@ export default (
             )
             ? this.onfilled(E,0)
             : (
-                this.confsave(),
-
                 (EL = this.EL),
                 (L = this.L),
 
@@ -42,7 +40,6 @@ export default (
                     (s3 = (s[3] -= 4))
                     || (
                         hL && (
-                            
                             this.current_h = this.shswitch(
                                 this.h,
                                 this.hP,
@@ -111,9 +108,9 @@ export default (
                     EL,
                     s3
                 ),
-                fsyncSync(d),
-
+                
                 ( this.L = L + 1 ),
+                (this.dump = true),
 
                 id
             )

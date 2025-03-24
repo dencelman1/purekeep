@@ -1,9 +1,11 @@
 
+
 [ updates ]:
 
 - added !=;
 - tb.entry(l, 4);
 - offset (with limit);
+- dump;
 
 [ bl ]:
 

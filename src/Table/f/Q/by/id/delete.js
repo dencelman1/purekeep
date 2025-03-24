@@ -13,15 +13,11 @@ export default (
             current_h_0 = current_h[0],
             sh0 = sh[0]
         ;
-
         return (
-            this.confsave(),
-
             hB.writeUInt32LE((id), 0),
             
             writeSync(current_h_0, hB, 0,4,current_h[3]),
-            fsyncSync(current_h_0),
-
+            
             ( --current_h[2] )
             || (
                 this.current_h =
@@ -40,7 +36,8 @@ export default (
             (this.L--),
             
             writeSync(sh0, this.eb, 0, 1, ((id - sh[4]) * EL)),
-            fsyncSync(sh0),
+
+            (this.dump = true),
 
             1
         );

@@ -90,8 +90,7 @@ export default (
                         hB.writeUInt32LE((I[f] = ei), 0);
 
                         writeSync((current_h_0 = current_h[0]), hB, 0,4,current_h[3]);
-                        fsyncSync(current_h_0);
-
+                        
                         ( --current_h[2] )
                         || (
                             this.current_h =
@@ -107,7 +106,6 @@ export default (
                         this.hL++;
 
                         writeSync(shard_d,eb, 0,1, (P + ( EL * pri )));
-                        fsyncSync(shard_d);
                         
                         if ( (++f) === l ) {
                             break a;
@@ -123,8 +121,7 @@ export default (
         };
         
         return (
-            this.confsave(),
-
+            (this.dump ||= f > 0),
             (this.L -= f),
             
             (this.filled && (f > 0))

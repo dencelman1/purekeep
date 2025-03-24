@@ -13,9 +13,8 @@ export default (
         ;
         
         return (
-            this.confsave(),
             writeSync(sh0, B, 0, EL, ((id - sh[4]) * EL)),
-            fsyncSync(sh0),
+            (this.dump = true),
             B
         );
     }

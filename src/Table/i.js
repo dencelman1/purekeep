@@ -5,12 +5,14 @@ import {
 } from 'path';
 
 import {
-    readFileSync
+    readFileSync,
+    closeSync
 } from 'fs';
 
 
 function Table(
-    lc
+    lc,
+    dump
 ) {
     var
         D = JSON.parse(readFileSync(join(lc, "d"), "utf8")),
@@ -35,6 +37,31 @@ function Table(
                 r[r.length - 1 - i] = v
             ),
             r
+        ),
+        i = 0,
+        l = 0,
+
+        eP = join(lc, "e"),
+        hP = join(lc, "h"),
+        h = D.h,
+        dump = false,
+
+        close_h = (
+            (closeSync,v) => {
+                var A = v[0];
+                return (
+                    (A === -2)
+                    ||
+                    (console.log(A),closeSync(A),1),
+                    closeSync
+                )
+            }
+        ),
+        
+        finsh = (
+            () => (
+                sh.reduce(close_h, h.reduce(close_h, closeSync))
+            )
         )
     ;
 
@@ -51,12 +78,25 @@ function Table(
 
     this.dP = join((this.lc = lc), "d");
 
-    this.s =
-        _switch(sh, ( this.eP = join(lc, "e") ), this.c);
+    this.hP = hP;
+    this.eP = eP;
+    
+    for (l = sh.length; i < l; i++) {
+        if ( sh[i][0] === -2 ) {
+            break;
+        }
+        else { _switch(sh, eP, i); }
+    };
+    this.s = i ? sh[i = this.c]: ((dump=true), _switch(sh, eP, i));
 
-    this.current_h =
-        _switch(this.h, ( this.hP = join(lc, "h") ), this.hc);
-
+    for (((i = 0), (l = h.length)); i < l; i++) {
+        if (h[i][0] === -2) {
+            break;
+        }
+        else { _switch(h, hP, i); }
+    };
+    this.current_h = i ? h[i = this.hc]: ((dump=true), _switch(h, hP, i));
+    
     this.rsh = Array.from(sh).reduce( reverse, sh );
 
     this.hB = Buffer.alloc(8);
@@ -90,6 +130,13 @@ function Table(
         )
     );
 
+    setInterval(
+        () => (this.dump &&= (this.confdump(),false)),
+        dump
+    );
+
+    this.dump = dump;
+    
     this.eb = Buffer.alloc(1, "\x00", "utf8");
     
     this.confid = 0;
@@ -102,3 +149,4 @@ function Table(
 Table.prototype = f;
 
 export default Table;
+
