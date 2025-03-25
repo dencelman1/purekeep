@@ -1,19 +1,18 @@
 
 
-export default ((utf8, utf16, o, t, f, e) => [
+export default ((str, o, t, f, e) => [
     o,
-    utf8,
+    str,
     o,
 
     t,f,e,
     o,t,f,e,
 
     f,e,
-    utf16,
+    str,
 ])(
-    (v) => Buffer.byteLength(v, "utf8"),
-    (v) => Buffer.byteLength(v, "utf16le"),
-
+    () => 0,
+    
     () => 1,
     () => 2,
     () => 4,

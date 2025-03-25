@@ -1,21 +1,17 @@
 
+
 export default (
     function(B, keys) {
         var
-            V = "[\n",
+            V = "[",
             bfrom = this.bfrom,
             str = JSON.stringify,
-
-            COLOR = this.COLOR,
             
             m = this.m,
             t = this.t,
             EL = this.EL,
 
-            pof = 0,
-
-            f = "    ",
-            f2 = f.repeat(2)
+            pof = 0
         ;
         for (
             var
@@ -31,7 +27,7 @@ export default (
             bi < L;
             (bi++), (pof += EL), (i = 0)
         ) {
-            V += (f + "{\n");
+            V += (f + "{");
             
             for (
                 ;
@@ -41,19 +37,19 @@ export default (
                 ti = t[i];
                 
                 V += (
-                    `${f2}"${keys[i]}": ${COLOR[ti]}`
-                    + str(
-                        bfrom[ ti ](
-                            B,
-                            pof + ( M = m[i] )[0],
-                            pof + M[1]
+                    `${f2}"${keys[i]}":${
+                        str(
+                            bfrom[ ti ](
+                                B,
+                                pof + ( M = m[i] )[0],
+                                pof + M[1]
+                            )
                         )
-                    )
-                    + "\x1b[0m,\n"
+                    },`
                 );
             };
 
-            V += (f + `},\n`);
+            V += (f + `},`);
         };
 
         return (
@@ -62,10 +58,10 @@ export default (
                 0,
                 (
                     V.length
-                    - 2
+                    - 1
                 )
             )
-            + "\n]"
+            + "]"
         );
     }
 )

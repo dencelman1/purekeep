@@ -1,4 +1,4 @@
 
 
 export {default as version} from './version.js';
-export {default as versionCheck} from './check.js';
+// export {default as version_check} from './check.js';

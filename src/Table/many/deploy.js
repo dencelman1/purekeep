@@ -1,4 +1,4 @@
-import TableDeploy from './deploy/deploy.js';
+import TableDeploy from '../deploy/deploy.js';
 
 
 export default (
@@ -14,7 +14,11 @@ export default (
         ) {
             TableDeploy(
                 pathes[i],
-                (v = tables[i]).mx,
+
+                (v = tables[i]).bs,
+                v.fs,
+                v.fba,
+                
                 v.t,
                 v.r
             );
